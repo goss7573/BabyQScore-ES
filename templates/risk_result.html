@@ -70,7 +70,7 @@
 </style>
 
 {% macro bucket_label(b) -%}
-  {%- if b == 'below' -%}Below average{%- elif b == 'above' -%}Above average{%- else -%}Average{%- endif -%}
+  {%- if b == 'below' -%}Por debajo del promedio{%- elif b == 'above' -%}Por encima del promedio{%- else -%}Promedio{%- endif -%}
 {%- endmacro %}
 
 {% set safe = namespace(
@@ -80,11 +80,11 @@
 ) %}
 
 <div class="wrap">
-  <h1>Pregnancy Complication Risk Results</h1>
+  <h1>Resultados de riesgo de complicaciones del embarazo</h1>
 
   <div class="lede">
-    <p class="small"><strong>Our risk groups are based on national data from the CDC WONDER Natality Program.</strong> We divide women into <em>640</em> finely segmented groups using a combination of factors — including age, BMI, social circumstances, personal habits, geographic region, and access to healthcare. These groups are built from outcomes of tens of millions of births recorded over the most recent eight years.</p>
-    <p class="small">Some characteristics, such as your age, cannot be changed. Others, like nutrition, activity, and stress management, can be improved — and increasing your BabyQ score helps you focus on the things you can control.</p>
+    <p class="small"><strong>Nuestros grupos de riesgo están basados en datos nacionales del programa de natalidad CDC WONDER.</strong> Dividimos a las mujeres en <em>640</em> grupos finamente segmentados usando una combinación de factores, incluyendo edad, IMC, circunstancias sociales, hábitos personales, región geográfica y acceso a la atención médica. Estos grupos se construyen a partir de los resultados de decenas de millones de nacimientos registrados durante los últimos ocho años.</p>
+    <p class="small">Algunas características, como su edad, no se pueden cambiar. Otras, como la nutrición, la actividad física y el manejo del estrés, sí pueden mejorarse, y aumentar su puntaje BabyQ le ayuda a enfocarse en las cosas que sí puede controlar.</p>
   </div>
 
   <div class="grid">
@@ -94,10 +94,10 @@
     {% set gdm_bucket = (safe.gdm.bucket if safe.gdm.bucket is defined) or 'average' %}
     {% set gdm_marker = (safe.gdm.position if safe.gdm.position is defined) or 50 %}
     <section class="card">
-      <h3>Gestational Diabetes (GDM)</h3>
+      <h3>Diabetes gestacional (GDM)</h3>
 
       <div class="scale">
-        <div class="labels"><span>Below</span><span>Average</span><span>Above</span></div>
+        <div class="labels"><span>Debajo</span><span>Promedio</span><span>Encima</span></div>
         <div class="bar">
           <div class="seg low"></div>
           <div class="seg mid"></div>
@@ -109,14 +109,14 @@
       </div>
 
       <div class="scoreline">
-        Your group: <strong>{{ bucket_label(gdm_bucket) }}</strong>
-        {% if gdm_percent is not none %} • Estimated risk: <strong>{{ '%.2f'|format(gdm_percent|float) }}%</strong>{% else %} • Estimated risk: <em>N/A (defaulted to Average)</em>{% endif %}
+        Su grupo: <strong>{{ bucket_label(gdm_bucket) }}</strong>
+        {% if gdm_percent is not none %} • Riesgo estimado: <strong>{{ '%.2f'|format(gdm_percent|float) }}%</strong>{% else %} • Riesgo estimado: <em>N/D (se usó el promedio por defecto)</em>{% endif %}
       </div>
 
       {% if safe.gdm.cohort_percent is defined %}
         <div class="kvs">
-          <div class="muted">Global average</div><div>{{ '%.2f'|format(safe.gdm.cohort_percent|float) }}%</div>
-          {% if safe.gdm.notes %}<div class="muted">Notes</div><div>{{ safe.gdm.notes }}</div>{% endif %}
+          <div class="muted">Promedio global</div><div>{{ '%.2f'|format(safe.gdm.cohort_percent|float) }}%</div>
+          {% if safe.gdm.notes %}<div class="muted">Notas</div><div>{{ safe.gdm.notes }}</div>{% endif %}
         </div>
       {% endif %}
     </section>
@@ -126,10 +126,10 @@
     {% set ptb_bucket = (safe.ptb.bucket if safe.ptb.bucket is defined) or 'average' %}
     {% set ptb_marker = (safe.ptb.position if safe.ptb.position is defined) or 50 %}
     <section class="card">
-      <h3>Preterm Birth (PTB)</h3>
+      <h3>Parto prematuro (PTB)</h3>
 
       <div class="scale">
-        <div class="labels"><span>Below</span><span>Average</span><span>Above</span></div>
+        <div class="labels"><span>Debajo</span><span>Promedio</span><span>Encima</span></div>
         <div class="bar">
           <div class="seg low"></div>
           <div class="seg mid"></div>
@@ -141,14 +141,14 @@
       </div>
 
       <div class="scoreline">
-        Your group: <strong>{{ bucket_label(ptb_bucket) }}</strong>
-        {% if ptb_percent is not none %} • Estimated risk: <strong>{{ '%.2f'|format(ptb_percent|float) }}%</strong>{% else %} • Estimated risk: <em>N/A (defaulted to Average)</em>{% endif %}
+        Su grupo: <strong>{{ bucket_label(ptb_bucket) }}</strong>
+        {% if ptb_percent is not none %} • Riesgo estimado: <strong>{{ '%.2f'|format(ptb_percent|float) }}%</strong>{% else %} • Riesgo estimado: <em>N/D (se usó el promedio por defecto)</em>{% endif %}
       </div>
 
       {% if safe.ptb.cohort_percent is defined %}
         <div class="kvs">
-          <div class="muted">Global average</div><div>{{ '%.2f'|format(safe.ptb.cohort_percent|float) }}%</div>
-          {% if safe.ptb.notes %}<div class="muted">Notes</div><div>{{ safe.ptb.notes }}</div>{% endif %}
+          <div class="muted">Promedio global</div><div>{{ '%.2f'|format(safe.ptb.cohort_percent|float) }}%</div>
+          {% if safe.ptb.notes %}<div class="muted">Notas</div><div>{{ safe.ptb.notes }}</div>{% endif %}
         </div>
       {% endif %}
     </section>
@@ -158,10 +158,10 @@
     {% set ght_bucket = (safe.ght.bucket if safe.ght.bucket is defined) or 'average' %}
     {% set ght_marker = (safe.ght.position if safe.ght.position is defined) or 50 %}
     <section class="card">
-      <h3>Pregnancy‑Related Hypertension</h3>
+      <h3>Hipertensión relacionada con el embarazo</h3>
 
       <div class="scale">
-        <div class="labels"><span>Below</span><span>Average</span><span>Above</span></div>
+        <div class="labels"><span>Debajo</span><span>Promedio</span><span>Encima</span></div>
         <div class="bar">
           <div class="seg low"></div>
           <div class="seg mid"></div>
@@ -173,45 +173,46 @@
       </div>
 
       <div class="scoreline">
-        Your group: <strong>{{ bucket_label(ght_bucket) }}</strong>
-        {% if ght_percent is not none %} • Estimated risk: <strong>{{ '%.2f'|format(ght_percent|float) }}%</strong>{% else %} • Estimated risk: <em>N/A (defaulted to Average)</em>{% endif %}
+        Su grupo: <strong>{{ bucket_label(ght_bucket) }}</strong>
+        {% if ght_percent is not none %} • Riesgo estimado: <strong>{{ '%.2f'|format(ght_percent|float) }}%</strong>{% else %} • Riesgo estimado: <em>N/D (se usó el promedio por defecto)</em>{% endif %}
       </div>
 
       <div class="kvs">
-        <div class="muted">Global average</div>
+        <div class="muted">Promedio global</div>
         <div>7.50%</div>
       </div>
+    </section>
 
   </div><!-- grid -->
 
   <div class="legend">
-    <span class="muted">Legend:</span>
-    <span class="dot d-low"></span><span class="muted">Below average</span>
-    <span class="dot d-mid"></span><span class="muted">Average</span>
-    <span class="dot d-high"></span><span class="muted">Above average</span>
+    <span class="muted">Leyenda:</span>
+    <span class="dot d-low"></span><span class="muted">Por debajo del promedio</span>
+    <span class="dot d-mid"></span><span class="muted">Promedio</span>
+    <span class="dot d-high"></span><span class="muted">Por encima del promedio</span>
   </div>
 
   <div class="footer-note">
-    “While your group’s average risk reflects the experiences of women with similar backgrounds and circumstances, you can take steps right now to improve your own outlook. Increasing your BabyQ score through healthier habits, better nutrition, regular prenatal care, and strong social support can help lower your personal risk and give your baby the best possible start.”
+    “Aunque el riesgo promedio de su grupo refleja la experiencia de mujeres con antecedentes y circunstancias similares, usted puede tomar medidas ahora mismo para mejorar su situación. Aumentar su puntaje BabyQ mediante hábitos más saludables, mejor nutrición, control prenatal regular y un fuerte apoyo social puede ayudar a reducir su riesgo personal y darle a su bebé el mejor comienzo posible.”
   </div>
 
   {% if inputs or debug %}
     <details class="debug">
-      <summary>Show technical details</summary>
+      <summary>Mostrar detalles técnicos</summary>
       {% if inputs %}
-        <p class="muted"><strong>Your inputs</strong></p>
+        <p class="muted"><strong>Sus datos ingresados</strong></p>
         <pre class="muted" style="white-space:pre-wrap">{{ inputs }}</pre>
       {% endif %}
       {% if debug %}
-        <p class="muted"><strong>Debug</strong></p>
+        <p class="muted"><strong>Depuración</strong></p>
         <pre class="muted" style="white-space:pre-wrap">{{ debug }}</pre>
       {% endif %}
     </details>
   {% endif %}
 
   <div class="cta">
-    <form method="GET" action="{{ url_for('risk_form') }}"><button class="btn" type="submit">Back to Risk Form</button></form>
-    <form method="GET" action="{{ url_for('index') }}"><button class="btn secondary" type="submit">Retake BabyQ</button></form>
+    <form method="GET" action="{{ url_for('risk_form') }}"><button class="btn" type="submit">Volver al formulario de riesgo</button></form>
+    <form method="GET" action="{{ url_for('index') }}"><button class="btn secondary" type="submit">Volver a hacer BabyQ</button></form>
   </div>
 </div>
 {% endblock %}
