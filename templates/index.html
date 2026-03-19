@@ -58,30 +58,30 @@
 </style>
 
 <div class="score-box">
-  <h2>Your BabyQ Score Shows You How</h2>
+  <h2>Tu puntaje BabyQ te muestra cómo</h2>
   <p>
-    Pregnancy is the perfect time to activate your baby’s healthiest genes.
-    This 15-question yes/no quiz shows you how to turn your baby's good genes
-    on and bad genes off—so you can give your baby the best possible start.
+    El embarazo es el momento perfecto para activar los genes más saludables de tu bebé.
+    Este cuestionario de 15 preguntas de sí o no te muestra cómo activar los buenos genes
+    de tu bebé y desactivar los perjudiciales, para que puedas darle el mejor comienzo posible.
   </p>
   <a href="#questionnaire">
-    <button class="submit-button">Start Your Assessment Below</button>
+    <button class="submit-button">Comienza tu evaluación abajo</button>
   </a>
 </div>
 
 <hr>
 
 <div id="questionnaire">
-  <h2 style="color:#5e3bea;">Take the BabyQ Assessment</h2>
+  <h2 style="color:#5e3bea;">Haz la evaluación BabyQ</h2>
   <form method="POST">
     {% for i in range(questions|length) %}
     <div class="question">
-      <strong>Q{{ i + 1 }}:</strong> {{ questions[i] }}<br>
-      <label><input type="radio" name="q{{ i }}" value="Yes" required> Yes</label>
+      <strong>P{{ i + 1 }}:</strong> {{ questions[i] }}<br>
+      <label><input type="radio" name="q{{ i }}" value="Yes" required> Sí</label>
       <label><input type="radio" name="q{{ i }}" value="No"> No</label>
     </div>
     {% endfor %}
-    <button type="submit" class="submit-button">Submit My Answers</button>
+    <button type="submit" class="submit-button">Enviar mis respuestas</button>
   </form>
 </div>
 
