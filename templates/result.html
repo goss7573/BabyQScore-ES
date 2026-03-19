@@ -89,7 +89,7 @@ async function getNextMessage(questionIndex, buttonEl){
 </script>
 
 <div class="container">
-  <h1>BabyQ Score Results</h1>
+  <h1>Resultados de tu puntaje BabyQ</h1>
 
   <!--
   <p style="
@@ -98,39 +98,39 @@ async function getNextMessage(questionIndex, buttonEl){
     font-size: 18px;
     font-weight: 600;
   ">
-    Create an account to track your progress — no email required.
+    Crea una cuenta para seguir tu progreso — no se requiere correo electrónico.
     <a href="{{ url_for('register_bp.register') }}" style="font-weight: 700;">
-     Click here.
+     Haz clic aquí.
     </a>
   </p>
   -->
 
-  <div class="score">Total Score: {{ score }} / 100</div>
+  <div class="score">Puntaje total: {{ score }} / 100</div>
 
   {% for category in category_scores.keys() %}
     {% set sc = category_scores[category] %}
     {% set tot = category_totals[category] %}
     {% set pct = (sc / tot * 100) | round(0) %}
-    <div class="bar-label">{{ category }}: {{ sc }} / {{ tot }} points</div>
+    <div class="bar-label">{{ category }}: {{ sc }} / {{ tot }} puntos</div>
     <div class="bar"><div class="fill" style="width: {{ pct }}%;">{{ pct }}%</div></div>
   {% endfor %}
 
   <div class="strengths">
-    <h2>✅ Your Strengths</h2>
-    <p>You already have {{ strengths_count }} answers aligned with ACOG recommendations. Keep up these healthy habits!</p>
+    <h2>✅ Tus fortalezas</h2>
+    <p>Ya tienes {{ strengths_count }} respuestas alineadas con las recomendaciones de ACOG. Sigue con estos hábitos saludables.</p>
   </div>
 
-  <h2 style="margin-top:32px;">Areas for Improvement</h2>
+  <h2 style="margin-top:32px;">Áreas para mejorar</h2>
   {% for item in messages %}
     <div class="card">
       <p>{{ item.text }}</p>
-      <button class="que" onclick="getNextMessage({{ item.index }}, this)">Que Me Up!</button>
+      <button class="que" onclick="getNextMessage({{ item.index }}, this)">¡Dame otro consejo!</button>
     </div>
   {% endfor %}
 
   <div class="btnrow">
     <form method="GET" action="{{ url_for('index') }}">
-      <button type="submit" class="btn">Retake BabyQ</button>
+      <button type="submit" class="btn">Volver a hacer BabyQ</button>
     </form>
   </div>
 </div>
