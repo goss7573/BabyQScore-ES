@@ -25,7 +25,7 @@ def login():
         password = request.form.get('password') or ''
 
         if not username or not password:
-            flash('Please fill in both fields.')
+            flash('Por favor complete ambos campos.')
             return render_template('login.html')
 
         conn = get_connection()
@@ -43,7 +43,7 @@ def login():
             session['user_id'] = row[0]
             return redirect(url_for('index'))
 
-        flash('Invalid credentials.')
+        flash('Credenciales inválidas.')
         return render_template('login.html')
 
     return render_template('login.html')
