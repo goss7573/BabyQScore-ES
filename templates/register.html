@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create Your BabyQ Account</title>
+  <title>Crea tu cuenta BabyQ</title>
 
   <style>
     body {
@@ -53,7 +53,6 @@
       box-sizing: border-box;
     }
 
-    /* --- added for password-eye toggle --- */
     .password-container {
       position: relative;
       margin-bottom: 1rem;
@@ -67,7 +66,6 @@
       color: #5e3bea;
       user-select: none;
     }
-    /* --- end addition --- */
 
     button {
       width: 100%;
@@ -103,54 +101,54 @@
 </head>
 <body>
   <div class="form-container">
-     <h2>Create Your BabyQ Account</h2>
+     <h2>Crea tu cuenta BabyQ</h2>
      <p style="font-size:0.95rem; color:#6a5585; margin-top:-0.5rem; margin-bottom:1.2rem; text-align:center;">
-       Create an account to track your BabyQ scores over time and view your progress.
-       Only a username and password are required.
+       Crea una cuenta para seguir tus puntajes BabyQ con el tiempo y ver tu progreso.
+       Solo se requiere un nombre de usuario y una contraseña.
   </p>
 
     <form method="POST" action="{{ url_for('register_bp.register') }}">
-       <label for="username">Username</label>
+       <label for="username">Nombre de usuario</label>
       <input type="text"
              name="username"
-             placeholder="Choose a username (letters & numbers)"
+             placeholder="Elige un nombre de usuario (letras y números)"
              minlength="6"
              maxlength="12"
              pattern="[A-Za-z0-9]+"
              required>
       <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.5rem;">
-        6–12 letters or numbers only.
+        Solo de 6 a 12 letras o números.
       </p>
 
-       <label for="email">Email (optional)</label>
-       <input type="email" name="email" placeholder="Email (optional)">
+       <label for="email">Correo electrónico (opcional)</label>
+       <input type="email" name="email" placeholder="Correo electrónico (opcional)">
        <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.5rem;">
-         Optional for notifications.
+         Opcional para notificaciones.
        </p>
 
-     <label for="reg-password">Password</label>
+     <label for="reg-password">Contraseña</label>
      <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.5rem;">
-       Minimum 8 characters. Letters and numbers only.
+       Mínimo 8 caracteres. Solo letras y números.
      </p>
      <div class="password-container">
        <input type="password"
               id="reg-password"
               name="password"
-              placeholder="Password"
+              placeholder="Contraseña"
               minlength="8"
               pattern="[A-Za-z0-9]+"
               required>
        <span class="toggle-eye" onclick="toggleRegPassword()">👁️</span>
      </div>
 
-      <label for="year_of_birth">Year of Birth</label>
+      <label for="year_of_birth">Año de nacimiento</label>
       <select name="year_of_birth" required>
         {% for year in range(1950, 2025) %}
           <option value="{{ year }}">{{ year }}</option>
         {% endfor %}
       </select>
 
-      <label for="due_month">Due Month</label>
+      <label for="due_month">Mes probable de parto</label>
       <select name="due_month" required>
         {% for month in ["January","February","March","April","May","June",
                          "July","August","September","October","November","December"] %}
@@ -158,15 +156,14 @@
         {% endfor %}
       </select>
 
-      <button type="submit">Register</button>
+      <button type="submit">Registrarse</button>
     </form>
 
     <div class="login-link">
-      Already have an account? <a href="{{ url_for('login_bp.login') }}">Sign in</a>
+      ¿Ya tiene una cuenta? <a href="{{ url_for('login_bp.login') }}">Inicie sesión</a>
     </div>
   </div>
 
-  <!-- small JS toggle function -->
   <script>
     function toggleRegPassword() {
       const input = document.getElementById('reg-password');
