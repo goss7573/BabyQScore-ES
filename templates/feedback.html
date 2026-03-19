@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Feedback | BabyQ</title>
+    <title>Comentarios | BabyQ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- If base styling is shared via base.html CSS, this will inherit it -->
@@ -58,27 +58,26 @@
 <div class="feedback-container">
 
     <!-- Visible back link -->
-    <a href="javascript:history.back()" class="back-link">← Back</a>
+    <a href="javascript:history.back()" class="back-link">← Volver</a>
 
-    <h1>Feedback</h1>
+    <h1>Comentarios</h1>
 
     <p class="intro">
-        We are constantly improving BabyQscore.org. Your feedback helps guide that work. Thank you.
+        Estamos mejorando BabyQscore.org constantemente. Sus comentarios nos ayudan a orientar ese trabajo. Gracias.
     </p>
 
-    <!-- Mailto-based feedback form -->
     <form action="/feedback" method="post">
 
-        <label for="q1">What question do you wish BabyQ or Stacy answered better?</label>
+        <label for="q1">¿Qué pregunta quisiera que BabyQ o Stacy respondieran mejor?</label>
         <textarea id="q1" name="Question to improve"></textarea>
 
-        <label for="q2">Is there a feature or improvement you’d like to suggest?</label>
+        <label for="q2">¿Hay alguna función o mejora que quisiera sugerir?</label>
         <textarea id="q2" name="Feature suggestion"></textarea>
 
-        <label for="q3">Anything else you’d like us to know? (optional)</label>
+        <label for="q3">¿Hay algo más que quisiera que supiéramos? (opcional)</label>
         <textarea id="q3" name="Additional comments"></textarea>
 
-        <button type="submit">Send Feedback</button>
+        <button type="submit">Enviar comentarios</button>
     </form>
 
 </div>
