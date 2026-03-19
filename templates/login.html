@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Plausible Analytics -->
-  <script defer data-domain="babyqscore.org" src="https://plausible.io/js/script.js"></script>
+  <script defer data-domain="es.babyqscore.org" src="https://plausible.io/js/script.js"></script>
 
-  <title>Login – BabyQ Score</title>
+  <title>Iniciar sesión – BabyQ Score</title>
 
   <style>
     body {
@@ -126,24 +126,24 @@
   <div class="banner">
     <h1>BabyQscore</h1>
     <p>
-      BabyQscore.org was created by <strong>Mark Gostine, MD</strong>, a dedicated father of four,
-      grandfather of six, lifelong runner, and nutritional advocate. After treating chronic disease
-      for much of his professional career, he realized with the birth of his first grandchild that
-      good health truly begins in the womb — providing the inspiration for BabyQscore.org.
+      BabyQscore.org fue creado por <strong>Mark Gostine, MD</strong>, padre dedicado de cuatro hijos,
+      abuelo de seis, corredor de toda la vida y defensor de la nutrición. Después de tratar enfermedades crónicas
+      durante gran parte de su carrera profesional, comprendió con el nacimiento de su primer nieto que
+      la buena salud realmente comienza en el útero, lo que sirvió de inspiración para BabyQscore.org.
     </p>
     <p>
-      The BabyQ Score is built on the recommendations of the
-      <strong>American College of Obstetricians and Gynecologists (ACOG)</strong> and outcome data
-      from <strong>CDC WONDER</strong>, based on tens of millions of U.S. deliveries.
+      El puntaje BabyQ está basado en las recomendaciones del
+      <strong>American College of Obstetricians and Gynecologists (ACOG)</strong> y en datos de resultados
+      de <strong>CDC WONDER</strong>, basados en decenas de millones de partos en los Estados Unidos.
     </p>
     <p>
-      Whether you are <strong>pregnant now</strong> or <strong>planning a pregnancy</strong>,
-      BabyQ Score helps you learn how to have the healthiest pregnancy possible.
+      Ya sea que esté <strong>embarazada ahora</strong> o <strong>planeando un embarazo</strong>,
+      BabyQ Score le ayuda a aprender cómo tener el embarazo más saludable posible.
     </p>
   </div>
 
   <div class="login-box">
-    <h2>Sign in to BabyQ Score</h2>
+    <h2>Inicie sesión en BabyQ Score</h2>
 
     {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -152,18 +152,18 @@
     {% endwith %}
 
     <form method="POST" action="{{ url_for('login_bp.login') }}">
-      <input type="text" name="username" placeholder="Username" required>
+      <input type="text" name="username" placeholder="Nombre de usuario" required>
 
       <div class="password-container">
-        <input type="password" id="login-password" name="password" placeholder="Password" required>
+        <input type="password" id="login-password" name="password" placeholder="Contraseña" required>
         <span class="toggle-eye" onclick="togglePassword()">👁️</span>
       </div>
 
-      <button type="submit">Login</button>
+      <button type="submit">Iniciar sesión</button>
     </form>
 
     <div class="link">
-      <p>Don't have an account? <a href="{{ url_for('register_bp.register') }}">Register</a></p>
+      <p>¿No tiene una cuenta? <a href="{{ url_for('register_bp.register') }}">Regístrese</a></p>
     </div>
   </div>
 
