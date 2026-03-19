@@ -71,7 +71,7 @@ def register():
             email = None
 
         if not username or not password:
-            flash('Please fill in all required fields.')
+            flash('Por favor complete todos los campos obligatorios.')
             reminded = True
             return render_template('register.html')
 
@@ -91,7 +91,7 @@ def register():
             row = c.fetchone()
             user_id = row[0] if row else None
             if not user_id:
-                raise RuntimeError("Failed to create user (no id returned)")
+                raise RuntimeError("No se pudo crear el usuario (no se devolvió un id)")
 
             # 2. Attach most recent anonymous assessment (if any)
             anon_id = session.get('anon_id')
@@ -114,12 +114,12 @@ def register():
 
             # 3. Log user in and go straight to dashboard
             session['user_id'] = user_id
-            flash('Account created. Your results have been saved.')
+            flash('Cuenta creada. Sus resultados han sido guardados.')
             return redirect(url_for('dashboard'))
 
         except psycopg.errors.UniqueViolation:
             conn.rollback()
-            flash('That username or email is already registered.')
+            flash('Ese nombre de usuario o correo electrónico ya está registrado.')
             return redirect(url_for('register_bp.register'))
 
         finally:
