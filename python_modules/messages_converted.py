@@ -42,6 +42,7 @@ MESSAGES = {
         "Sustituye las bebidas alcohólicas por alternativas especiales sin alcohol durante los eventos sociales. Prueba jugo de uva con gas, mocktails o refrescos especiales. Planear alternativas sin alcohol te ayuda a mantener tus conexiones sociales mientras proteges a tu bebé.",
         "La abstinencia de alcohol puede ser peligrosa durante el embarazo y debe manejarse por profesionales médicos. No trates de dejarlo de golpe por tu cuenta; trabaja con tu profesional de salud para desintoxicarte de manera segura y recibir supervisión médica adecuada durante el proceso.",
         "Anota tus días sin alcohol y celebra tu progreso. Cada día sin alcohol es una victoria para la salud y el desarrollo de tu bebé. Usa una aplicación de embarazo o un diario para registrar tus logros de sobriedad y recordarte por qué estás tomando esta decisión tan importante.",
+    ],   
     "2": [
         "Call 1-800-QUIT-NOW and you'll be connected directly to your state's tobacco cessation services. Many states have pregnancy-specific programs with ongoing counseling designed just for pregnant women. It's free, confidential, and available 24/7 to help you quit for you and your baby.",
         "Visit Smokefree Women's 'Quit for Two' program at women.smokefree.gov for pregnancy-specific support, online tools, and community resources. They provide tailored advice for quitting smoking during pregnancy with tips designed specifically for expecting mothers.",
