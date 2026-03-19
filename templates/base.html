@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <title>BabyQ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- SEO and Social Media Meta Tags -->
-  <meta name="description" content="A 5-minute, research-based quiz that helps expecting moms improve their pregnancy wellness through lifestyle, nutrition, and support.">
-  <meta name="keywords" content="pregnancy, wellness, babyq score, healthy pregnancy, prenatal quiz, babyqscore">
-  <meta property="og:title" content="BabyQ Score – Your Pregnancy Wellness Check">
-  <meta property="og:description" content="Discover your BabyQ Score – a quick, science-backed wellness check for expecting moms.">
-  <meta property="og:url" content="https://www.babyqscore.org/">
+  <meta name="description" content="Un cuestionario de 5 minutos, basado en investigación, que ayuda a las futuras mamás a mejorar su bienestar durante el embarazo mediante el estilo de vida, la nutrición y el apoyo.">
+  <meta name="keywords" content="embarazo, bienestar, babyq score, embarazo saludable, cuestionario prenatal, babyqscore">
+  <meta property="og:title" content="BabyQ Score – Tu evaluación de bienestar durante el embarazo">
+  <meta property="og:description" content="Descubre tu puntaje BabyQ: una evaluación rápida y basada en la ciencia para futuras mamás.">
+  <meta property="og:url" content="https://es.babyqscore.org/">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://www.babyqscore.org/static/babyq_preview.png">
+  <meta property="og:image" content="https://es.babyqscore.org/static/babyq_preview.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="BabyQ Score – Your Pregnancy Wellness Check">
-  <meta name="twitter:description" content="Take the BabyQ quiz and see how small changes can lead to a healthier pregnancy.">
-  <meta name="twitter:image" content="https://www.babyqscore.org/static/babyq_preview.png">
+  <meta name="twitter:title" content="BabyQ Score – Tu evaluación de bienestar durante el embarazo">
+  <meta name="twitter:description" content="Haz el cuestionario BabyQ y descubre cómo pequeños cambios pueden contribuir a un embarazo más saludable.">
+  <meta name="twitter:image" content="https://es.babyqscore.org/static/babyq_preview.png">
   <!-- Favicon and App Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
   <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
@@ -23,7 +23,7 @@
   <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
 
   <!-- Plausible Analytics -->
-  <script defer data-domain="babyqscore.org" src="https://plausible.io/js/script.js"></script>
+  <script defer data-domain="es.babyqscore.org" src="https://plausible.io/js/script.js"></script>
 
   <!-- External CSS for global styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
@@ -45,14 +45,14 @@
   <header>
     <h1>BabyQ</h1>
     <nav>
-      <a href="{{ url_for('index') }}">Get Your BabyQ Score</a>
-      <a href="{{ url_for('dashboard') }}">Dashboard</a>
-      <a href="{{ url_for('risk_form') }}">Pregnancy Risk Profile</a>
-      <a href="{{ url_for('news') }}">Pregnancy Health News</a>
-      <a href="/static/babyq_full_evidence_protected.html">References</a>
-      <a href="/stacy">Ask Stacy</a>
-      <a href="/feedback">Feedback</a>
-      <a href="{{ url_for('login_bp.login') }}">Logout</a>
+      <a href="{{ url_for('index') }}">Obtén tu puntaje BabyQ</a>
+      <a href="{{ url_for('dashboard') }}">Panel</a>
+      <a href="{{ url_for('risk_form') }}">Perfil de riesgo del embarazo</a>
+      <a href="{{ url_for('news') }}">Noticias sobre salud en el embarazo</a>
+      <a href="/static/babyq_full_evidence_protected.html">Referencias</a>
+      <a href="/stacy">Pregúntale a Stacy</a>
+      <a href="/feedback">Comentarios</a>
+      <a href="{{ url_for('login_bp.login') }}">Cerrar sesión</a>
     </nav>
   </header>
   <main>
