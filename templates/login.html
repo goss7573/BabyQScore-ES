@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="babyqscore.org" src="https://plausible.io/js/script.js"></script>
+
+  <title>Login – BabyQ Score</title>
+
+  <style>
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #fbe5f4 0%, #e9dbff 100%);
+      color: #3a2b4b;
+    }
+
+    .banner {
+      text-align: center;
+      max-width: 650px;
+      margin-bottom: 2.5rem;
+      padding: 0 1rem;
+    }
+
+    .banner h1 {
+      color: #4a2b84;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0.6rem 0;
+    }
+
+    .login-box {
+      background-color: #ffffff;
+      padding: 2.2rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 1.2rem;
+      color: #4a2b84;
+    }
+
+    .login-box input[type="email"],
+    .login-box input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #d6c7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    .password-container {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .toggle-eye {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #5e3bea;
+      user-select: none;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 0.8rem;
+      background: linear-gradient(90deg, #b16be3 0%, #f28ac9 100%);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .login-box button:hover {
+      transform: scale(1.04);
+    }
+
+    .login-box .error {
+      color: red;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .login-box .link {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .login-box .link a {
+      color: #b16be3;
+      text-decoration: none;
+    }
+
+    .login-box .link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <h1>BabyQscore</h1>
+    <p>
+      BabyQscore.org was created by <strong>Mark Gostine, MD</strong>, a dedicated father of four,
+      grandfather of six, lifelong runner, and nutritional advocate. After treating chronic disease
+      for much of his professional career, he realized with the birth of his first grandchild that
+      good health truly begins in the womb — providing the inspiration for BabyQscore.org.
+    </p>
+    <p>
+      The BabyQ Score is built on the recommendations of the
+      <strong>American College of Obstetricians and Gynecologists (ACOG)</strong> and outcome data
+      from <strong>CDC WONDER</strong>, based on tens of millions of U.S. deliveries.
+    </p>
+    <p>
+      Whether you are <strong>pregnant now</strong> or <strong>planning a pregnancy</strong>,
+      BabyQ Score helps you learn how to have the healthiest pregnancy possible.
+    </p>
+  </div>
+
+  <div class="login-box">
+    <h2>Sign in to BabyQ Score</h2>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="error">{{ messages[0] }}</div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('login_bp.login') }}">
+      <input type="text" name="username" placeholder="Username" required>
+
+      <div class="password-container">
+        <input type="password" id="login-password" name="password" placeholder="Password" required>
+        <span class="toggle-eye" onclick="togglePassword()">👁️</span>
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="link">
+      <p>Don't have an account? <a href="{{ url_for('register_bp.register') }}">Register</a></p>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const input = document.getElementById('login-password');
+      input.type = (input.type === 'password') ? 'text' : 'password';
+    }
+  </script>
+</body>
+</html>

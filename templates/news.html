@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Pregnancy Health News</h2>
+
+{% for cat in category_order %}
+  {% set lst = by_category.get(cat, []) %}
+  {% if lst %}
+    <h3 style="margin-top:1.4rem;">{{ cat }}</h3>
+
+    {% for it in lst %}
+      <div style="margin: 0.85rem 0; padding-bottom: 0.85rem; border-bottom: 1px solid #ddd;">
+        <div style="font-weight:700; font-size:1.02rem;">
+          <a href="{{ it.get('url','') }}" target="_blank" rel="noopener noreferrer">
+            {{ it.get('headline','(No headline)') }}
+          </a>
+        </div>
+
+        {% if it.get('summary') %}
+          <div style="margin-top:0.35rem; line-height:1.45;">
+            {{ it.get('summary') }}
+          </div>
+        {% endif %}
+
+        <div style="margin-top:0.35rem; font-size:0.9rem; color:#555;">
+          {% if it.get('overall_score') is not none %}
+            Score: {{ it.get('overall_score') }}
+          {% endif %}
+          {% if it.get('sub_total') is not none %}
+            | Subscore: {{ it.get('sub_total') }}/25
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+
+{% endblock %}

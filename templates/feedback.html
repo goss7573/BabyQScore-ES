@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback | BabyQ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- If base styling is shared via base.html CSS, this will inherit it -->
+    <style>
+        .feedback-container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+            font-family: inherit;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        p.intro {
+            margin-bottom: 30px;
+            color: #444;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 10px;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="feedback-container">
+
+    <!-- Visible back link -->
+    <a href="javascript:history.back()" class="back-link">← Back</a>
+
+    <h1>Feedback</h1>
+
+    <p class="intro">
+        We are constantly improving BabyQscore.org. Your feedback helps guide that work. Thank you.
+    </p>
+
+    <!-- Mailto-based feedback form -->
+    <form action="/feedback" method="post">
+
+        <label for="q1">What question do you wish BabyQ or Stacy answered better?</label>
+        <textarea id="q1" name="Question to improve"></textarea>
+
+        <label for="q2">Is there a feature or improvement you’d like to suggest?</label>
+        <textarea id="q2" name="Feature suggestion"></textarea>
+
+        <label for="q3">Anything else you’d like us to know? (optional)</label>
+        <textarea id="q3" name="Additional comments"></textarea>
+
+        <button type="submit">Send Feedback</button>
+    </form>
+
+</div>
+
+</body>
+</html>

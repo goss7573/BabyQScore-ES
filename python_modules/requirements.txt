@@ -1,0 +1,44 @@
+# Core web framework
+Flask==2.3.3
+
+# Template engine & HTML rendering (Flask includes Jinja2 by default)
+Jinja2==3.1.2
+
+# Database (optional ORM support, even if using raw SQLite)
+Flask-SQLAlchemy==3.0.5
+SQLAlchemy==1.4.46
+
+# Password hashing and authentication
+Werkzeug==2.3.7
+
+# Form handling & CSRF protection
+Flask-WTF==1.1.1
+WTForms==3.0.1
+
+# Session management
+Flask-Login==0.6.2
+
+# Utilities
+itsdangerous==2.1.2
+click==8.1.3
+
+# Environment variable support
+python-dotenv==0.21.0
+
+# Deployment
+gunicorn==20.1.0
+
+# Data / table loading (PINNED for binary compatibility on Render)
+pandas==1.5.3
+numpy==1.23.5
+openpyxl==3.1.2
+
+# Database driver (used by login_module.py and register_module.py)
+pymysql
+
+# HTTP client (used for Stacy relay calls)
+httpx
+psycopg[binary]
+
+
+

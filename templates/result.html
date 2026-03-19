@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .container {
+    max-width: 900px;
+    margin: auto;
+    padding: 1rem;  /* breathing room on mobile */
+  }
+  h1 {
+    color: #6a1b9a;
+    text-align: center;
+  }
+  .score {
+    text-align: center;
+    font-size: 28px;
+    margin: 18px 0;
+    color: #4b2991;
+  }
+  .bar-label {
+    font-weight: bold;
+    margin-top: 18px;
+    margin-bottom: 6px;
+  }
+  .bar {
+    height: 24px;
+    background: #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .fill {
+    height: 100%;
+    background: #6a1b9a;
+    text-align: right;
+    padding-right: 10px;
+    line-height: 24px;
+    color: #fff;
+    font-weight: bold;
+  }
+  .card {
+    background: #fff;
+    border-left: 6px solid #6a1b9a;
+    padding: 14px;
+    margin-top: 14px;
+    border-radius: 8px;
+  }
+  .que {
+    margin-top: 8px;
+    background: #6a1b9a;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .btnrow {
+    text-align: center;
+    margin-top: 28px;
+  }
+  .btn {
+    background: #6a1b9a;
+    color: #fff;
+    padding: 10px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px;
+  }
+  .strengths {
+    margin-top: 32px;
+    padding: 14px;
+    background: #e8f5e9;
+    border-left: 6px solid #2e7d32;
+    border-radius: 8px;
+  }
+</style>
+
+<script>
+async function getNextMessage(questionIndex, buttonEl){
+  const r = await fetch('/get_next_message', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ question_number: questionIndex })
+  });
+  const data = await r.json();
+  const card = buttonEl.closest('.card');
+  card.querySelector('p').innerText = data.message;
+}
+</script>
+
+<div class="container">
+  <h1>BabyQ Score Results</h1>
+
+  <!--
+  <p style="
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 18px;
+    font-weight: 600;
+  ">
+    Create an account to track your progress — no email required.
+    <a href="{{ url_for('register_bp.register') }}" style="font-weight: 700;">
+     Click here.
+    </a>
+  </p>
+  -->
+
+  <div class="score">Total Score: {{ score }} / 100</div>
+
+  {% for category in category_scores.keys() %}
+    {% set sc = category_scores[category] %}
+    {% set tot = category_totals[category] %}
+    {% set pct = (sc / tot * 100) | round(0) %}
+    <div class="bar-label">{{ category }}: {{ sc }} / {{ tot }} points</div>
+    <div class="bar"><div class="fill" style="width: {{ pct }}%;">{{ pct }}%</div></div>
+  {% endfor %}
+
+  <div class="strengths">
+    <h2>✅ Your Strengths</h2>
+    <p>You already have {{ strengths_count }} answers aligned with ACOG recommendations. Keep up these healthy habits!</p>
+  </div>
+
+  <h2 style="margin-top:32px;">Areas for Improvement</h2>
+  {% for item in messages %}
+    <div class="card">
+      <p>{{ item.text }}</p>
+      <button class="que" onclick="getNextMessage({{ item.index }}, this)">Que Me Up!</button>
+    </div>
+  {% endfor %}
+
+  <div class="btnrow">
+    <form method="GET" action="{{ url_for('index') }}">
+      <button type="submit" class="btn">Retake BabyQ</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

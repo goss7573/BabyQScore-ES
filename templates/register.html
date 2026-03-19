@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create Your BabyQ Account</title>
+
+  <style>
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #fbe5f4 0%, #e9dbff 100%);
+      color: #3a2b4b;
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      padding: 2.2rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 420px;
+      box-sizing: border-box;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      color: #4a2b84;
+      margin-bottom: 1.4rem;
+      font-size: 1.6rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+      color: #4a2b84;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #d6c7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    /* --- added for password-eye toggle --- */
+    .password-container {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .toggle-eye {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #5e3bea;
+      user-select: none;
+    }
+    /* --- end addition --- */
+
+    button {
+      width: 100%;
+      padding: 0.8rem;
+      background: linear-gradient(90deg, #b16be3 0%, #f28ac9 100%);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.04);
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 0.95rem;
+    }
+
+    .login-link a {
+      color: #b16be3;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+     <h2>Create Your BabyQ Account</h2>
+     <p style="font-size:0.95rem; color:#6a5585; margin-top:-0.5rem; margin-bottom:1.2rem; text-align:center;">
+       Create an account to track your BabyQ scores over time and view your progress.
+       Only a username and password are required.
+  </p>
+
+    <form method="POST" action="{{ url_for('register_bp.register') }}">
+       <label for="username">Username</label>
+      <input type="text"
+             name="username"
+             placeholder="Choose a username (letters & numbers)"
+             minlength="6"
+             maxlength="12"
+             pattern="[A-Za-z0-9]+"
+             required>
+      <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.5rem;">
+        6–12 letters or numbers only.
+      </p>
+
+       <label for="email">Email (optional)</label>
+       <input type="email" name="email" placeholder="Email (optional)">
+       <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.5rem;">
+         Optional for notifications.
+       </p>
+
+     <label for="reg-password">Password</label>
+     <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.5rem;">
+       Minimum 8 characters. Letters and numbers only.
+     </p>
+     <div class="password-container">
+       <input type="password"
+              id="reg-password"
+              name="password"
+              placeholder="Password"
+              minlength="8"
+              pattern="[A-Za-z0-9]+"
+              required>
+       <span class="toggle-eye" onclick="toggleRegPassword()">👁️</span>
+     </div>
+
+      <label for="year_of_birth">Year of Birth</label>
+      <select name="year_of_birth" required>
+        {% for year in range(1950, 2025) %}
+          <option value="{{ year }}">{{ year }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="due_month">Due Month</label>
+      <select name="due_month" required>
+        {% for month in ["January","February","March","April","May","June",
+                         "July","August","September","October","November","December"] %}
+          <option value="{{ month }}">{{ month }}</option>
+        {% endfor %}
+      </select>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <div class="login-link">
+      Already have an account? <a href="{{ url_for('login_bp.login') }}">Sign in</a>
+    </div>
+  </div>
+
+  <!-- small JS toggle function -->
+  <script>
+    function toggleRegPassword() {
+      const input = document.getElementById('reg-password');
+      input.type = (input.type === 'password') ? 'text' : 'password';
+    }
+  </script>
+</body>
+</html>
+
+<!-- ---- END OF FILE register.html (with password-eye toggle added) ---- -->

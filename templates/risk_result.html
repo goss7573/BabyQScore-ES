@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  :root{
+    --brand:#6a1b9a;
+    --brand-dark:#4b2991;
+    --ok:#3a7f4b;
+    --warn:#b88700;
+    --risk:#c62828;
+    --card-bg:#fff;
+    --muted:#666;
+    --ring: rgba(106,27,154,.15);
+  }
+
+  .wrap{max-width:1000px;margin:0 auto;padding:18px;}
+  h1{color:var(--brand);text-align:center;margin:8px 0 6px;}
+  .lede{color:#222;background:#faf7ff;border:1px solid #efe7fb;border-left:6px solid var(--brand);
+        border-radius:10px;padding:16px 14px;margin:14px 0;}
+  .lede p{margin:6px 0;}
+  .lede .small{font-size:.95rem;color:#444}
+
+  /* 3-up grid for the risk visuals */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+  @media (max-width:880px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--card-bg);border-radius:12px;border:1px solid #eee;
+        box-shadow:0 1px 0 #f4f0fb, 0 0 0 4px var(--ring);padding:16px}
+  .card h3{margin:0 0 10px;color:#2d2451}
+  .kvs{display:grid;grid-template-columns:140px 1fr;gap:6px;font-size:.95rem;color:#444;margin-top:8px}
+  .muted{color:var(--muted);font-size:.92rem}
+
+  /* risk bar */
+  .scale{margin-top:10px}
+  .scale .labels{display:flex;justify-content:space-between;font-size:.82rem;color:#555;margin:0 4px 6px}
+  .bar{height:18px;border-radius:10px;display:grid;grid-template-columns:1fr 1fr 1fr;overflow:hidden}
+  .seg{height:100%}
+  .seg.low{background:#e8f3ec}
+  .seg.mid{background:#f7f3e2}
+  .seg.high{background:#fde8e8}
+  .pin{
+    position:relative;height:0
+  }
+  .pin i{
+    position:relative;display:block;width:0;height:0;margin-top:-5px;
+    border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid var(--brand-dark)
+  }
+  .pin i::after{
+    content:attr(data-tip);position:absolute;left:50%;transform:translateX(-50%);
+    background:#2d2451;color:#fff;border-radius:6px;padding:4px 8px;white-space:nowrap;
+    font-size:.8rem;top:-30px
+  }
+
+  .scoreline{margin-top:10px;font-size:1.05rem;color:var(--brand-dark)}
+  .scoreline strong{font-size:1.15rem}
+
+  .legend{display:flex;gap:12px;align-items:center;margin-top:10px}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .d-low{background:#d2ead8}.d-mid{background:#efe6bf}.d-high{background:#f7cccc}
+
+  details.debug{margin-top:18px}
+  summary{cursor:pointer}
+
+  .footer-note{
+    background:#f9fafb;border:1px solid #eef2f7;border-left:6px solid var(--brand);
+    border-radius:10px;padding:14px;margin:18px 0 6px;color:#30343b
+  }
+
+  .cta{display:flex;justify-content:center;gap:10px;margin:22px 0 6px}
+  .btn{background:var(--brand);color:#fff;border:0;border-radius:10px;padding:10px 18px;cursor:pointer}
+  .btn.secondary{background:#e9e2f7;color:#2d2451}
+</style>
+
+{% macro bucket_label(b) -%}
+  {%- if b == 'below' -%}Below average{%- elif b == 'above' -%}Above average{%- else -%}Average{%- endif -%}
+{%- endmacro %}
+
+{% set safe = namespace(
+  gdm = results.gdm if results and results.gdm is defined else {},
+  ptb = results.ptb if results and results.ptb is defined else {},
+  ght = results.ght if results and results.ght is defined else {}
+) %}
+
+<div class="wrap">
+  <h1>Pregnancy Complication Risk Results</h1>
+
+  <div class="lede">
+    <p class="small"><strong>Our risk groups are based on national data from the CDC WONDER Natality Program.</strong> We divide women into <em>640</em> finely segmented groups using a combination of factors — including age, BMI, social circumstances, personal habits, geographic region, and access to healthcare. These groups are built from outcomes of tens of millions of births recorded over the most recent eight years.</p>
+    <p class="small">Some characteristics, such as your age, cannot be changed. Others, like nutrition, activity, and stress management, can be improved — and increasing your BabyQ score helps you focus on the things you can control.</p>
+  </div>
+
+  <div class="grid">
+
+    {# -------- GDM -------- #}
+    {% set gdm_percent = (safe.gdm.percent if safe.gdm.percent is defined) or None %}
+    {% set gdm_bucket = (safe.gdm.bucket if safe.gdm.bucket is defined) or 'average' %}
+    {% set gdm_marker = (safe.gdm.position if safe.gdm.position is defined) or 50 %}
+    <section class="card">
+      <h3>Gestational Diabetes (GDM)</h3>
+
+      <div class="scale">
+        <div class="labels"><span>Below</span><span>Average</span><span>Above</span></div>
+        <div class="bar">
+          <div class="seg low"></div>
+          <div class="seg mid"></div>
+          <div class="seg high"></div>
+        </div>
+        <div class="pin" style="left:0;position:relative;">
+          <i style="left: {{ gdm_marker|float|round(1) }}%;" data-tip="{{ gdm_percent if gdm_percent is not none else '—' }}%"></i>
+        </div>
+      </div>
+
+      <div class="scoreline">
+        Your group: <strong>{{ bucket_label(gdm_bucket) }}</strong>
+        {% if gdm_percent is not none %} • Estimated risk: <strong>{{ '%.2f'|format(gdm_percent|float) }}%</strong>{% else %} • Estimated risk: <em>N/A (defaulted to Average)</em>{% endif %}
+      </div>
+
+      {% if safe.gdm.cohort_percent is defined %}
+        <div class="kvs">
+          <div class="muted">Global average</div><div>{{ '%.2f'|format(safe.gdm.cohort_percent|float) }}%</div>
+          {% if safe.gdm.notes %}<div class="muted">Notes</div><div>{{ safe.gdm.notes }}</div>{% endif %}
+        </div>
+      {% endif %}
+    </section>
+
+    {# -------- PTB -------- #}
+    {% set ptb_percent = (safe.ptb.percent if safe.ptb.percent is defined) or None %}
+    {% set ptb_bucket = (safe.ptb.bucket if safe.ptb.bucket is defined) or 'average' %}
+    {% set ptb_marker = (safe.ptb.position if safe.ptb.position is defined) or 50 %}
+    <section class="card">
+      <h3>Preterm Birth (PTB)</h3>
+
+      <div class="scale">
+        <div class="labels"><span>Below</span><span>Average</span><span>Above</span></div>
+        <div class="bar">
+          <div class="seg low"></div>
+          <div class="seg mid"></div>
+          <div class="seg high"></div>
+        </div>
+        <div class="pin" style="left:0;position:relative;">
+          <i style="left: {{ ptb_marker|float|round(1) }}%;" data-tip="{{ ptb_percent if ptb_percent is not none else '—' }}%"></i>
+        </div>
+      </div>
+
+      <div class="scoreline">
+        Your group: <strong>{{ bucket_label(ptb_bucket) }}</strong>
+        {% if ptb_percent is not none %} • Estimated risk: <strong>{{ '%.2f'|format(ptb_percent|float) }}%</strong>{% else %} • Estimated risk: <em>N/A (defaulted to Average)</em>{% endif %}
+      </div>
+
+      {% if safe.ptb.cohort_percent is defined %}
+        <div class="kvs">
+          <div class="muted">Global average</div><div>{{ '%.2f'|format(safe.ptb.cohort_percent|float) }}%</div>
+          {% if safe.ptb.notes %}<div class="muted">Notes</div><div>{{ safe.ptb.notes }}</div>{% endif %}
+        </div>
+      {% endif %}
+    </section>
+
+    {# -------- GHT -------- #}
+    {% set ght_percent = (safe.ght.percent if safe.ght.percent is defined) or None %}
+    {% set ght_bucket = (safe.ght.bucket if safe.ght.bucket is defined) or 'average' %}
+    {% set ght_marker = (safe.ght.position if safe.ght.position is defined) or 50 %}
+    <section class="card">
+      <h3>Pregnancy‑Related Hypertension</h3>
+
+      <div class="scale">
+        <div class="labels"><span>Below</span><span>Average</span><span>Above</span></div>
+        <div class="bar">
+          <div class="seg low"></div>
+          <div class="seg mid"></div>
+          <div class="seg high"></div>
+        </div>
+        <div class="pin" style="left:0;position:relative;">
+          <i style="left: {{ ght_marker|float|round(1) }}%;" data-tip="{{ ght_percent if ght_percent is not none else '—' }}%"></i>
+        </div>
+      </div>
+
+      <div class="scoreline">
+        Your group: <strong>{{ bucket_label(ght_bucket) }}</strong>
+        {% if ght_percent is not none %} • Estimated risk: <strong>{{ '%.2f'|format(ght_percent|float) }}%</strong>{% else %} • Estimated risk: <em>N/A (defaulted to Average)</em>{% endif %}
+      </div>
+
+      <div class="kvs">
+        <div class="muted">Global average</div>
+        <div>7.50%</div>
+      </div>
+
+  </div><!-- grid -->
+
+  <div class="legend">
+    <span class="muted">Legend:</span>
+    <span class="dot d-low"></span><span class="muted">Below average</span>
+    <span class="dot d-mid"></span><span class="muted">Average</span>
+    <span class="dot d-high"></span><span class="muted">Above average</span>
+  </div>
+
+  <div class="footer-note">
+    “While your group’s average risk reflects the experiences of women with similar backgrounds and circumstances, you can take steps right now to improve your own outlook. Increasing your BabyQ score through healthier habits, better nutrition, regular prenatal care, and strong social support can help lower your personal risk and give your baby the best possible start.”
+  </div>
+
+  {% if inputs or debug %}
+    <details class="debug">
+      <summary>Show technical details</summary>
+      {% if inputs %}
+        <p class="muted"><strong>Your inputs</strong></p>
+        <pre class="muted" style="white-space:pre-wrap">{{ inputs }}</pre>
+      {% endif %}
+      {% if debug %}
+        <p class="muted"><strong>Debug</strong></p>
+        <pre class="muted" style="white-space:pre-wrap">{{ debug }}</pre>
+      {% endif %}
+    </details>
+  {% endif %}
+
+  <div class="cta">
+    <form method="GET" action="{{ url_for('risk_form') }}"><button class="btn" type="submit">Back to Risk Form</button></form>
+    <form method="GET" action="{{ url_for('index') }}"><button class="btn secondary" type="submit">Retake BabyQ</button></form>
+  </div>
+</div>
+{% endblock %}

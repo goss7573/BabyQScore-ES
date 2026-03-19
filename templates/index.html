@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* compact pink intro box */
+  .score-box {
+    background-color: #f8c8dc;
+    color: #3a2b4b;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    border-radius: 8px;
+    margin: 1.5rem auto 1rem auto;
+    max-width: 700px;
+  }
+
+  .score-box h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.4rem;
+    color: #4a2b84;
+  }
+
+  .score-box p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0.5rem 0 1rem;
+  }
+
+  .submit-button {
+    background: linear-gradient(90deg, #b16be3 0%, #f28ac9 100%);
+    color: #fff;
+    padding: 0.7rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .submit-button:hover {
+    transform: scale(1.05);
+  }
+
+  .question {
+    margin-bottom: 1.2rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .score-box {
+      max-width: 90%;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+</style>
+
+<div class="score-box">
+  <h2>Your BabyQ Score Shows You How</h2>
+  <p>
+    Pregnancy is the perfect time to activate your baby’s healthiest genes.
+    This 15-question yes/no quiz shows you how to turn your baby's good genes
+    on and bad genes off—so you can give your baby the best possible start.
+  </p>
+  <a href="#questionnaire">
+    <button class="submit-button">Start Your Assessment Below</button>
+  </a>
+</div>
+
+<hr>
+
+<div id="questionnaire">
+  <h2 style="color:#5e3bea;">Take the BabyQ Assessment</h2>
+  <form method="POST">
+    {% for i in range(questions|length) %}
+    <div class="question">
+      <strong>Q{{ i + 1 }}:</strong> {{ questions[i] }}<br>
+      <label><input type="radio" name="q{{ i }}" value="Yes" required> Yes</label>
+      <label><input type="radio" name="q{{ i }}" value="No"> No</label>
+    </div>
+    {% endfor %}
+    <button type="submit" class="submit-button">Submit My Answers</button>
+  </form>
+</div>
+
+{% endblock %}

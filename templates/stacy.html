@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stacy – Your Pregnancy Assistant</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #faf6fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #6a1b9a;
+            color: white;
+            padding: 14px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .back-link {
+            text-align: center;
+            margin: 12px 0;
+        }
+        .back-link a {
+            color: #6a1b9a;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .back-link a:hover {
+            color: #4a136d;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 780px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 78vh;
+        }
+
+        .messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 6px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 14px;
+        }
+
+        .msg {
+            margin: 10px 0;
+            padding: 10px 14px;
+            border-radius: 12px;
+            max-width: 80%;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+
+        .user {
+            background-color: #e0bbf5;
+            align-self: flex-end;
+        }
+
+        .stacy {
+            background-color: #f3e5f5;
+            align-self: flex-start;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        #userInput {
+            flex-grow: 1;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #aaa;
+        }
+
+        #sendBtn {
+            background-color: #6a1b9a;
+            color: white;
+            padding: 10px 18px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #sendBtn:hover {
+            background-color: #4a136d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">Chat with Stacy</div>
+
+    <div class="back-link">
+        <a href="/">← Back to BabyQ Home</a>
+    </div>
+
+    <div class="chat-container">
+        <div id="messages" class="messages"></div>
+
+        <script>
+    window.addEventListener("load", function () {
+        addMessage(
+            "Hi, I’m Stacy. I’m here to help answer questions about pregnancy health, what’s normal, and what may need attention. All of the information I provide is grounded in guidance from the American College of Obstetricians and Gynecologists (ACOG) and in large-scale pregnancy outcome data from the CDC, including CDC WONDER.\n\nYou can ask me about symptoms, risks, or concerns at any stage of pregnancy. When you ask a follow up question please mention the topic again so I can be very precise.\n\nI’m also here to help you fine-tune your BabyQ Score. One of the most important things you can do for a healthy pregnancy is to steadily improve your BabyQ Score over time. You can do this by reviewing the messages—what we call Ques—that correspond to the questions where you have the greatest opportunity for improvement.\n\nI encourage you to retake your BabyQ Score each week. This helps remind you where to focus your efforts and lets you see your score rise as you make positive changes—reassurance that you’re doing the right things for your baby.",
+            "stacy"
+        );
+    });
+</script>
+
+
+        <div class="input-area">
+            <input id="userInput" type="text" placeholder="Ask Stacy anything about your pregnancy..." />
+            <button id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function addThinkingMessage() {
+            const msgBox = document.getElementById("messages");
+            const div = document.createElement("div");
+            div.classList.add("msg", "stacy");
+            div.id = "thinking-message";
+            div.textContent = "Stacy is thinking…";
+            msgBox.appendChild(div);
+            msgBox.scrollTop = msgBox.scrollHeight;
+}
+        function removeThinkingMessage() {
+            const thinking = document.getElementById("thinking-message");
+            if (thinking) {
+                thinking.remove();
+    }
+}
+
+        async function sendMessage() {
+            const input = document.getElementById("userInput");
+            const text = input.value.trim();
+            if (!text) return;
+
+            addMessage(text, "user");
+            input.value = "";
+            addThinkingMessage();
+
+            try {
+                const response = await fetch("/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: text })
+                });
+
+                const data = await response.json();
+                const reply = data.response || "(No response from Stacy)";
+                removeThinkingMessage();
+                addMessage(reply, "stacy");
+
+            } catch (err) {
+                removeThinkingMessage();
+                addMessage("(Error contacting Stacy API)", "stacy");
+            }
+        }
+
+        function addMessage(text, sender) {
+            const msgBox = document.getElementById("messages");
+            const div = document.createElement("div");
+            div.classList.add("msg");
+            div.classList.add(sender);
+            div.textContent = text;
+            msgBox.appendChild(div);
+            msgBox.scrollTop = msgBox.scrollHeight;
+        }
+
+        document.getElementById("sendBtn").addEventListener("click", sendMessage);
+
+        document.getElementById("userInput").addEventListener("keypress", function (e) {
+            if (e.key === "Enter") sendMessage();
+        });
+    </script>
+
+</body>
+</html>

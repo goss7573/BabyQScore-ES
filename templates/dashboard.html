@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  .card { background:#fff; border-radius:12px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,.06); margin-bottom:16px; }
+  .bar-bg { height:10px; background:#eee; border-radius:6px; overflow:hidden; }
+  .bar-fill { height:100%; background:#6a0dad; width:0%; transition:width .4s; }
+  .muted { color:#666; font-size:.9rem; }
+  .btn { background:#ff5c5c; color:#fff; border:none; border-radius:8px; padding:10px 14px; cursor:pointer; }
+  .btn-secondary { background:#6a0dad; }
+  .pill { display:inline-block; padding:2px 8px; background:#f1edff; border-radius:999px; margin-left:8px; font-size:.8rem; color:#6a0dad;}
+  .work-item { border-left:4px solid #6a0dad; padding-left:10px; margin:10px 0; }
+  .row { display:flex; gap:16px; }
+  .col { flex:1; }
+  @media (max-width: 800px){ .row{flex-direction:column;} }
+</style>
+
+<h2>Most recent BabyQ score</h2>
+<div class="card">
+  {% if current %}
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div style="font-size:2rem; font-weight:700; color:#6a0dad;">{{ current.total_score }}</div>
+      <a class="btn" href="{{ url_for('index') }}">Take New Assessment</a>
+    </div>
+    <div class="muted">Taken: {{ current.created_at }}</div>
+
+    <h3 style="margin-top:18px;">Your L‑E‑N‑S breakdown</h3>
+    <div class="row">
+      {% for label, total in {"Lifestyle":50, "Exercise":14, "Nutrition":20, "Support":16}.items() %}
+      <div class="col card" style="margin:0;">
+        <div style="display:flex; justify-content:space-between;">
+          <strong>{{ label }}</strong>
+          <span class="muted">{{ current.LENS[label] }}/{{ total }}</span>
+        </div>
+        <div class="bar-bg" style="margin-top:8px;">
+          {% set pct = (current.LENS[label] / total * 100) if total>0 else 0 %}
+          <div class="bar-fill" style="width: {{ '%.1f' % pct }}%;"></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="muted">No assessments yet. Take your first one!</div>
+    <a class="btn" href="{{ url_for('index') }}" style="margin-top:10px;">Take New Assessment</a>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h3>Work on next</h3>
+  {% if work_items and work_items|length > 0 %}
+    {% for w in work_items %}
+      <div class="work-item">
+        <div><strong>Q{{ w.q_num }}</strong> {{ w.text }}</div>
+        <button class="btn btn-secondary" style="margin-top:8px;"
+                onclick="cue({{ w.q_num }})">Cue Me Up</button>
+        <div id="cue-{{ w.q_num }}" class="muted" style="margin-top:8px;"></div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="muted">Nice! No open items from your most recent assessment.</div>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h3>History (last 5)</h3>
+  {% if history and history|length > 0 %}
+    <ul style="list-style:none; padding-left:0;">
+      {% for h in history %}
+        <li style="margin:8px 0;">
+          <strong>{{ h.total_score }}</strong>
+          <span class="muted">points</span>
+          <span class="pill">{{ h.created_at }}</span>
+          <span class="muted" style="margin-left:8px;">
+            L {{ h.LENS['Lifestyle'] }}/50 • E {{ h.LENS['Exercise'] }}/14 • N {{ h.LENS['Nutrition'] }}/20 • S {{ h.LENS['Support'] }}/16
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="muted">No history yet.</div>
+  {% endif %}
+</div>
+
+<script>
+async function cue(qNum){
+  const res = await fetch("{{ url_for('get_next_message_route') }}", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({question_number: qNum})
+  });
+  const data = await res.json();
+  const el = document.getElementById("cue-"+qNum);
+  el.textContent = data.message || "No message available.";
+}
+</script>
+
+{% endblock %}

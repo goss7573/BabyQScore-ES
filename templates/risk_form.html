@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="calc-container">
+  <h2 class="calc-title">Pregnancy Complication Calculator</h2>
+  <p class="calc-subtitle">Understand your risks of early delivery, gestational diabetes and preeclampsia, from data derived from the CDC.</p>
+
+  <form method="POST" action="/risk_result" class="calc-card" id="risk-form">
+
+    <!-- Demographics -->
+    <h3 class="section-title">Demographics & Physical Information</h3>
+    <div class="form-group">
+      <label>Age (years):</label>
+      <input type="number" name="age" class="form-control" min="10" max="60" required>
+    </div>
+
+    <div class="form-group">
+      <label>Race/Ethnicity:</label>
+      <select name="ethnicity" class="form-control" required>
+        <option value="">Select...</option>
+        <option>White</option>
+        <option>Black</option>
+        <option>Hispanic</option>
+        <option>Asian</option>
+        <option>Native American</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Pre-pregnancy weight (lbs):</label>
+        <input type="number" name="weight_pre" class="form-control" step="0.1" min="60" max="600" required>
+      </div>
+      <div class="form-group">
+        <label>Current weight (lbs):</label>
+        <input type="number" name="weight_now" class="form-control" step="0.1" min="60" max="600">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Height (feet):</label>
+        <input type="number" name="height_feet" class="form-control" placeholder="feet" min="3" max="7" required>
+      </div>
+      <div class="form-group">
+        <label>Height (inches):</label>
+        <input type="number" name="height_inches" class="form-control" placeholder="inches" min="0" max="11" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>ZIP Code:</label>
+      <input type="text" name="zip" class="form-control" pattern="[0-9]{5}" maxlength="5">
+    </div>
+
+    <!-- Pregnancy History -->
+    <h3 class="section-title">Pregnancy History</h3>
+    <div class="form-group">
+      <label>How many weeks pregnant?</label>
+      <input type="number" name="weeks_pregnant" class="form-control" min="0" max="42" required>
+    </div>
+
+    <div class="form-group">
+      <label>Number of prior births:</label>
+      <input type="number" name="prior_births" id="prior_births" class="form-control" min="0" max="20" required>
+      <!-- Mirror to 'gravida' (hidden) so existing GDM route continues to receive a value -->
+      <input type="hidden" name="gravida" id="gravida">
+    </div>
+
+    <div class="form-group">
+      <label>If you've had prior births, have you had one within the last 13 months?</label>
+      <select name="preg_interval" class="form-control">
+        <option value="">Select...</option>
+        <!-- Yes = interval within 13 months (maps to preg_interval_4_11 in PTB table) -->
+        <option value="4_11">Yes</option>
+        <!-- No = 12 months or more (maps to preg_interval_12_plus in PTB table) -->
+        <option value="12_plus">No</option>
+      </select>
+      <div class="form-hint small-text">
+        If you’re not sure or prefer not to answer, leave blank — we’ll use an average-risk default so the result page never breaks.
+      </div>
+    </div>
+
+    <div class="checklist">
+      <label><input type="checkbox" name="hx_preterm"> History of previous preterm birth</label>
+      <label><input type="checkbox" name="hx_gdm"> History of previous gestational diabetes</label>
+    </div>
+
+    <!-- Medical History -->
+    <h3 class="section-title">Past Medical History</h3>
+    <div class="checklist columns">
+      <label><input type="checkbox" name="hx_htn"> Hypertension (high blood pressure)</label>
+      <label><input type="checkbox" name="hx_diabetes"> Diabetes (Type 1 or Type 2)</label>
+      <label><input type="checkbox" name="fam_diabetes"> Family history of diabetes</label>
+      <label><input type="checkbox" name="hx_depression"> Depression</label>
+      <label><input type="checkbox" name="hx_thyroid"> Thyroid disease</label>
+      <label><input type="checkbox" name="hx_autoimmune"> Autoimmune disease (lupus, RA, etc.)</label>
+      <label><input type="checkbox" name="hx_pcos"> PCOS (polycystic ovary syndrome)</label>
+      <label><input type="checkbox" name="hx_cervical"> Cervical abnormalities / procedures</label>
+      <label><input type="checkbox" name="hx_macrosomia"> Previous baby over 9 lbs (4100g)</label>
+      <label><input type="checkbox" name="fam_preterm"> Family history of preterm birth (mother or sister)</label>
+      <label><input type="checkbox" name="fam_preeclampsia"> Family history of preeclampsia (mother or sister)</label>
+    </div>
+
+    <!-- Lifestyle & Social -->
+    <h3 class="section-title">Lifestyle & Social</h3>
+    <div class="form-group">
+      <label>Smoking status:</label>
+      <select name="smoking_status" class="form-control" required>
+        <option value="">Select...</option>
+        <option>Non-smoker</option>
+        <option>Former smoker</option>
+        <option>Current smoker</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Education level:</label>
+      <select name="education_level" class="form-control">
+        <option value="">Select...</option>
+        <option>High school or less</option>
+        <option>Some college</option>
+        <option>Bachelor's or higher</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Insurance type:</label>
+      <select name="insurance_type" class="form-control">
+        <option value="">Select...</option>
+        <option>Private</option>
+        <option>Medicaid</option>
+        <option>Uninsured</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Prenatal care started at (weeks):</label>
+      <input type="number" name="prenatal_start" class="form-control" min="0" max="40">
+    </div>
+
+    <div class="form-group">
+      <label>Type of pregnancy:</label>
+      <select name="pregnancy_type" class="form-control">
+        <option value="">Select...</option>
+        <option>Singleton</option>
+        <option>Twins</option>
+        <option>Triplets or more</option>
+      </select>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn-primary">Calculate My Risk</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Keep existing backend happy by mirroring prior_births -> hidden 'gravida'
+  (function(){
+    const prior = document.getElementById('prior_births');
+    const grav = document.getElementById('gravida');
+    function sync(){ grav.value = prior.value || ''; }
+    if (prior && grav){
+      prior.addEventListener('input', sync);
+      prior.addEventListener('change', sync);
+      sync();
+    }
+  })();
+</script>
+{% endblock %}

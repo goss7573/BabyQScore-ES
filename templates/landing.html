@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #3a2b4b;
+    background-color: #fffafc;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #fbe5f4 0%, #e9dbff 100%);
+    text-align: center;
+    padding: 5rem 1rem 6rem 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2.6rem;
+    color: #4a2b84;
+    margin-bottom: 1rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    line-height: 1.6;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: linear-gradient(90deg, #b16be3 0%, #f28ac9 100%);
+    color: white;
+    padding: 0.9rem 2rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+
+  .btn-primary:hover {
+    transform: scale(1.05);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    border: 2px solid #b16be3;
+    color: #b16be3;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background-color: #b16be3;
+    color: white;
+  }
+
+  .features {
+    text-align: center;
+    padding: 3rem 1rem 2rem 1rem;
+  }
+
+  .features h2 {
+    color: #4a2b84;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .feature {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+  }
+
+  .feature h3 {
+    color: #4a2b84;
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .benefits {
+    background-color: #fff3fa;
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+
+  .benefits h2 {
+    color: #4a2b84;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .benefits p {
+    margin-bottom: 2rem;
+    font-size: 1.05rem;
+  }
+
+  .benefit-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .benefit {
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    text-align: left;
+  }
+
+  .cta {
+    text-align: center;
+    padding: 4rem 1rem;
+  }
+
+  .cta h2 {
+    color: #4a2b84;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cta p {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+
+  footer {
+    background-color: #faf7fb;
+    color: #6a5585;
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  footer a {
+    color: #b16be3;
+    text-decoration: none;
+    margin: 0 0.5rem;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<!-- Hero Section -->
+<section class="hero">
+  <h1>
+    <a href="/index"
+       style="display:inline-block;
+              background:linear-gradient(90deg,#b16be3 0%,#f28ac9 100%);
+              color:white;
+              padding:0.8rem 2rem;
+              border-radius:50px;
+              text-decoration:none;
+              font-size:2rem;
+              font-weight:600;
+              transition:transform 0.2s;">
+      Get Your BabyQ Score
+    </a>
+  </h1>
+
+  <p>A research-based wellness quiz designed specifically for expecting mothers or women thinking about pregnancy.
+     Learn how to reduce your risks of early delivery, gestational diabetes, preeclampsia and excessive weight gain.</p>
+
+  <p style="max-width:700px; margin:0 auto 2rem auto; font-size:1rem; line-height:1.6; color:#3a2b4b;">
+    The BabyQscore was created by a team led by <strong>Mark Gostine, MD</strong>, inspired by the birth of his first grandchild.
+    He realized good health begins in the womb when a mother's choices, through epigenetics, can turn good genes on
+    and bad genes off. These effects may shape the child's health for a lifetime. With a team of professionals he developed the BabyQscore.
+    <strong>It is based on recommendations from the American College of Obstetricians and Gynecologists (ACOG)</strong>
+    and on data from tens of millions of deliveries available in the public domain from the <strong>CDC</strong>.
+  </p>
+
+  <div class="button-group">
+    <a href="/index" class="btn-primary">Take the Quiz</a>
+    <a href="/about" class="btn-secondary">Learn More</a>
+  </div>
+  <p style="margin-top:1.5rem; color:#6a5585; font-size:0.95rem;">
+     Science-backed • 3-minute quiz • Personalized results • Always free
+  </p>
+</section>
+
+<!-- How It Works -->
+<section class="features">
+  <h2>How It Works</h2>
+  <div class="feature-grid">
+    <div class="feature">
+      <div style="font-size:2rem;">📋</div>
+      <h3>Take the Quiz</h3>
+      <p>Answer carefully curated questions about your pregnancy wellness habits and lifestyle.</p>
+    </div>
+    <div class="feature">
+      <div style="font-size:2rem;">🧠</div>
+      <h3>Get Your Score</h3>
+      <p>Receive your personalized BabyQ Score based on research-backed wellness factors.</p>
+    </div>
+    <div class="feature">
+      <div style="font-size:2rem;">💜</div>
+      <h3>Improve Your Journey</h3>
+      <p>Get actionable insights and recommendations tailored to your unique pregnancy needs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose BabyQ -->
+<section class="benefits">
+  <h2>Why Choose BabyQ?</h2>
+  <p>Your trusted companion for a healthier pregnancy journey.</p>
+  <div class="benefit-list">
+    <div class="benefit">✅ Research derived from ACOG and the CDC.</div>
+    <div class="benefit">✅ Personalized recommendations for your unique pregnancy journey.</div>
+    <div class="benefit">✅ Track your wellness progress throughout pregnancy.</div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta">
+  <h2>Ready to Discover Your BabyQ Score?</h2>
+  <p>Join the hundreds of thousands of expecting mothers who trust BabyQ for their pregnancy wellness journey.</p>
+  <a href="/index" class="btn-primary">Start Your Assessment →</a>
+  <p style="margin-top:1rem; color:#6a5585;">Takes only 3 minutes • Always Free</p>
+</section>
+
+<!-- About BabyQ -->
+<section class="about" style="background-color:#f9f3ff; padding:3rem 1rem; text-align:center;">
+  <h2 style="color:#4a2b84;">About BabyQ</h2>
+  <p style="max-width:800px; margin:1rem auto; font-size:1rem; line-height:1.6; color:#3a2b4b;">
+    <p style="max-width:800px; margin:1rem auto; font-size:1rem; line-height:1.6; color:#3a2b4b;">
+      The BabyQscore was created by <strong>Mark Gostine, MD</strong>, inspired by the birth of his first grandchild.
+      Through his clinical experience, he came to appreciate that good health truly begins in the womb —
+      a time when a mother’s lifestyle choices can, through epigenetics, turn good genes on and bad genes off,
+      with effects that may shape a child’s health for a lifetime.
+    </p>
+  </p>
+  <p style="max-width:800px; margin:1rem auto; font-size:1rem; line-height:1.6; color:#3a2b4b;">
+    The BabyQ Score is built on the recommendations of the
+    <strong>American College of Obstetricians and Gynecologists (ACOG)</strong> and outcome data
+    from <strong>CDC WONDER</strong>, based on tens of millions of U.S. deliveries.
+    Whether you are pregnant now or planning a pregnancy, BabyQ Score helps you learn how to
+    have the healthiest pregnancy possible.
+  </p>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div><strong>BabyQ</strong> — Research-based pregnancy wellness</div>
+  <div style="margin-top:0.5rem;">
+    <a href="/privacy">Privacy</a> |
+    <a href="/terms">Terms</a> |
+  </div>
+
+  <div style="margin-top:0.5rem;">
+    Questions or feedback? Email us at
+    <a href="mailto:mgostine@babyqscore.org">mgostine@babyqscore.org</a>
+  </div>
+
+  <div style="margin-top:0.5rem; line-height:1.4;">
+ BabyQscore LLC<br>
+ 520 Butternut Dr. Unit 8<br>
+ Holland MI 49424
+ </div>
+
+  <div style="margin-top:0.5rem;">© 2025 BabyQ. All rights reserved.</div>
+</footer>
+
+{% endblock %}

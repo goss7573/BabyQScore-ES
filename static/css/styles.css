@@ -1,0 +1,69 @@
+/* Layout */
+.calc-container { max-width: 760px; margin: 2rem auto; padding: 1rem; }
+.calc-title { color: #5e3bea; text-align: center; margin-bottom: .25rem; }
+.calc-subtitle { text-align: center; color: #5b5b6a; margin-bottom: 1.25rem; }
+
+/* Card */
+.calc-card {
+  background: #f9f9ff;
+  padding: 1.75rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(30, 17, 77, 0.06);
+  border: 1px solid #ececff;
+}
+
+/* Sections */
+.section-title {
+  color: #5e3bea;
+  font-size: 1.05rem;
+  margin: 1.25rem 0 .5rem;
+  padding-top: .5rem;
+  border-top: 1px dashed #e6e6fb;
+}
+
+/* Form */
+.form-group { margin-bottom: .9rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-control, select, input[type="number"], input[type="text"] {
+  width: 100%;
+  padding: .6rem .7rem;
+  border: 1px solid #dad9f7;
+  border-radius: 10px;
+  background: #fff;
+  font-size: .98rem;
+  transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+.form-control:focus, select:focus, input:focus {
+  outline: none;
+  border-color: #7a62ff;
+  box-shadow: 0 0 0 3px rgba(122,98,255,0.12);
+  background-color: #fff;
+}
+
+/* Checklists */
+.checklist { display: grid; gap: .5rem; margin: .5rem 0 1rem; }
+.checklist.columns { grid-template-columns: 1fr; }
+@media (min-width: 720px) {
+  .checklist.columns { grid-template-columns: 1fr 1fr; }
+}
+.checklist label {
+  background: #ffffff;
+  border: 1px solid #eae9ff;
+  border-radius: 10px;
+  padding: .55rem .65rem;
+  display: flex; gap: .5rem; align-items: center;
+}
+.checklist input[type="checkbox"] { transform: scale(1.1); }
+
+/* Button */
+.actions { text-align: center; margin-top: 1rem; }
+.btn-primary {
+  padding: .8rem 1.6rem;
+  background: linear-gradient(135deg, #ff7a7a, #ff5c5c);
+  color: #fff; border: none; border-radius: 999px;
+  font-size: 1rem; cursor: pointer; font-weight: 600;
+  box-shadow: 0 10px 20px rgba(255,92,92,0.25);
+  transition: transform .07s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn-primary:hover { box-shadow: 0 12px 24px rgba(255,92,92,0.35); filter: brightness(1.02); }
+.btn-primary:active { transform: translateY(1px); }
