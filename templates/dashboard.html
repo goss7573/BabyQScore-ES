@@ -15,16 +15,16 @@
   @media (max-width: 800px){ .row{flex-direction:column;} }
 </style>
 
-<h2>Most recent BabyQ score</h2>
+<h2>Puntaje BabyQ más reciente</h2>
 <div class="card">
   {% if current %}
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <div style="font-size:2rem; font-weight:700; color:#6a0dad;">{{ current.total_score }}</div>
-      <a class="btn" href="{{ url_for('index') }}">Take New Assessment</a>
+      <a class="btn" href="{{ url_for('index') }}">Hacer una nueva evaluación</a>
     </div>
-    <div class="muted">Taken: {{ current.created_at }}</div>
+    <div class="muted">Realizada: {{ current.created_at }}</div>
 
-    <h3 style="margin-top:18px;">Your L‑E‑N‑S breakdown</h3>
+    <h3 style="margin-top:18px;">Tu desglose L-E-N-S</h3>
     <div class="row">
       {% for label, total in {"Lifestyle":50, "Exercise":14, "Nutrition":20, "Support":16}.items() %}
       <div class="col card" style="margin:0;">
@@ -40,35 +40,35 @@
       {% endfor %}
     </div>
   {% else %}
-    <div class="muted">No assessments yet. Take your first one!</div>
-    <a class="btn" href="{{ url_for('index') }}" style="margin-top:10px;">Take New Assessment</a>
+    <div class="muted">Aún no hay evaluaciones. Haz la primera.</div>
+    <a class="btn" href="{{ url_for('index') }}" style="margin-top:10px;">Hacer una nueva evaluación</a>
   {% endif %}
 </div>
 
 <div class="card">
-  <h3>Work on next</h3>
+  <h3>Trabaja ahora en esto</h3>
   {% if work_items and work_items|length > 0 %}
     {% for w in work_items %}
       <div class="work-item">
-        <div><strong>Q{{ w.q_num }}</strong> {{ w.text }}</div>
+        <div><strong>P{{ w.q_num }}</strong> {{ w.text }}</div>
         <button class="btn btn-secondary" style="margin-top:8px;"
-                onclick="cue({{ w.q_num }})">Cue Me Up</button>
+                onclick="cue({{ w.q_num }})">Dame un consejo</button>
         <div id="cue-{{ w.q_num }}" class="muted" style="margin-top:8px;"></div>
       </div>
     {% endfor %}
   {% else %}
-    <div class="muted">Nice! No open items from your most recent assessment.</div>
+    <div class="muted">Muy bien. No hay temas pendientes en tu evaluación más reciente.</div>
   {% endif %}
 </div>
 
 <div class="card">
-  <h3>History (last 5)</h3>
+  <h3>Historial (últimas 5)</h3>
   {% if history and history|length > 0 %}
     <ul style="list-style:none; padding-left:0;">
       {% for h in history %}
         <li style="margin:8px 0;">
           <strong>{{ h.total_score }}</strong>
-          <span class="muted">points</span>
+          <span class="muted">puntos</span>
           <span class="pill">{{ h.created_at }}</span>
           <span class="muted" style="margin-left:8px;">
             L {{ h.LENS['Lifestyle'] }}/50 • E {{ h.LENS['Exercise'] }}/14 • N {{ h.LENS['Nutrition'] }}/20 • S {{ h.LENS['Support'] }}/16
@@ -77,7 +77,7 @@
       {% endfor %}
     </ul>
   {% else %}
-    <div class="muted">No history yet.</div>
+    <div class="muted">Todavía no hay historial.</div>
   {% endif %}
 </div>
 
@@ -90,7 +90,7 @@ async function cue(qNum){
   });
   const data = await res.json();
   const el = document.getElementById("cue-"+qNum);
-  el.textContent = data.message || "No message available.";
+  el.textContent = data.message || "No hay mensaje disponible.";
 }
 </script>
 
