@@ -1,6 +1,6 @@
 MESSAGES = {
     "1": [
-                "¿Cómo puedo dejar de beber? Hay muchas maneras. No tienes que beber cuando otras personas beben. Si alguien te ofrece una bebida, está bien decir NO. Júntate con amistades que no beban. Para ayuda, ve a: https://www.samhsa.gov/find-help/helplines/national-helpline",
+        "¿Cómo puedo dejar de beber? Hay muchas maneras. No tienes que beber cuando otras personas beben. Si alguien te ofrece una bebida, está bien decir NO. Júntate con amistades que no beban. Para ayuda, ve a: https://www.samhsa.gov/find-help/helplines/national-helpline",
         "Las mujeres que beben alcohol durante el embarazo tienen más probabilidades de dar a luz prematuramente que las mujeres que no beben. Para un bebé sano, siempre es mejor llegar a término completo. Busca ayuda en el sitio web de AA en http://www.aa.org.",
         "¿Qué pasa si bebo durante el embarazo y mi bebé nace con problemas? ¿Esos problemas desaparecerán? No. Estos problemas pueden durar toda la vida del niño, con complicaciones en la niñez, la adolescencia y la adultez.",
         "¿Qué pasa si bebí en mi último embarazo y mi bebé salió bien? Cada embarazo es diferente. El alcohol puede dañar a un bebé más que a otro. Encuentra ayuda en https://www.samhsa.gov/find-help/helplines/national-helpline",
