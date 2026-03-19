@@ -105,21 +105,21 @@ def init_assessments_table():
 # init_assessments_table()
 
 QUESTIONS = [
-    "I have avoided drinking any alcohol during my pregnancy.",                  #1
-    "I have not smoked during my pregnancy.",                                   #2
-    "I get 7 to 9 hours of restful sleep most nights during my pregnancy.",     #3
-    "I attend all scheduled prenatal checkups (or have a plan to attend them).",#4
-    "I perform structured exercise (like brisk walking, classes, or prenatal yoga) for at least 20 - 30 minutes per day 4 to 5 days per week.", #5
-    "I eat at least two helpings of protein rich foods per day (poultry, eggs, beef, pork, seafood, tofu, tempeh, lentils).",               #6
-    "I limit sugary snacks to no more than 30 grams of sugar a day equal to one mini Coke or 3 Toll House cookies.",                       #7
-    "I feel mostly hopeful, positive, and able to enjoy daily activities, and rarely feel depressed.",                                     #8
-    "I eat 2 to 3 servings of vegetables at least 5 days a week.",                                                                          #9
-    "I have adequate support from my husband or partner, family and friends.",                                                              #10
-    "I manage stress and anxiety well and rarely feel overwhelmed.",                                                                         #11
-    "I have had a dental checkup and cleaning within the past 6 months or have one scheduled during my pregnancy.",                         #12
-    "I take a daily prenatal vitamin that contains at least 400 micrograms (mcg) of folic acid to support my baby's health.",               #13
-    "I consume at least one serving of dairy daily (such as milk, cheese, or yogurt) to support my baby's growth.",                         #14
-    "I regularly eat fiber-rich whole grains: barley, oatmeal, corn, nut butter, beans, quinoa, brown rice, bulgur."                        #15
+    "He evitado beber cualquier cantidad de alcohol durante mi embarazo.",  #1
+    "No he fumado durante mi embarazo.",  #2
+    "Duermo entre 7 y 9 horas de sueño reparador la mayoría de las noches durante mi embarazo.",  #3
+    "Asisto a todas mis citas prenatales programadas (o tengo un plan para asistir a ellas).",  #4
+    "Hago ejercicio estructurado (como caminar a paso rápido, clases o yoga prenatal) durante al menos 20 a 30 minutos al día, de 4 a 5 días por semana.",  #5
+    "Como al menos dos porciones al día de alimentos ricos en proteína (pollo, huevos, carne de res, cerdo, mariscos, tofu, tempeh o lentejas).",  #6
+    "Limito los bocadillos azucarados a no más de 30 gramos de azúcar al día, equivalente a una mini Coca-Cola o 3 galletas Toll House.",  #7
+    "Me siento en general esperanzada, positiva y capaz de disfrutar las actividades diarias, y rara vez me siento deprimida.",  #8
+    "Como de 2 a 3 porciones de verduras al menos 5 días a la semana.",  #9
+    "Tengo apoyo adecuado de mi esposo o pareja, mi familia y mis amigos.",  #10
+    "Manejo bien el estrés y la ansiedad, y rara vez me siento abrumada.",  #11
+    "Me han hecho una revisión y limpieza dental en los últimos 6 meses, o tengo una programada durante mi embarazo.",  #12
+    "Tomo diariamente una vitamina prenatal que contiene al menos 400 microgramos (mcg) de ácido fólico para apoyar la salud de mi bebé.",  #13
+    "Consumo al menos una porción de lácteos al día (como leche, queso o yogur) para apoyar el crecimiento de mi bebé.",  #14
+    "Como con regularidad granos integrales ricos en fibra: cebada, avena, maíz, mantequilla de nueces, frijoles, quinoa, arroz integral o bulgur."  #15
 ]
 
 POINTS = [19, 19, 6, 4, 14, 4, 4, 6, 4, 4, 2, 2, 4, 4, 4]
@@ -134,7 +134,6 @@ def index():
     # Ensure anonymous session ID for non-logged-in users
     if 'user_id' not in session and 'anon_id' not in session:
         session['anon_id'] = uuid.uuid4().hex
-
 
     if request.method == "GET":
         session.pop('last_score', None)
@@ -171,9 +170,9 @@ def index():
         if not is_yes:
             try:
                 msgs = get_messages(i + 1) or []
-                message_text = msgs[0] if msgs else "No messages available for this question."
+                message_text = msgs[0] if msgs else "No hay mensajes disponibles para esta pregunta."
             except Exception:
-                message_text = "No messages available for this question."
+                message_text = "No hay mensajes disponibles para esta pregunta."
             messages.append({"index": i + 1, "text": message_text})
 
         session['last_score'] = total_score
@@ -235,7 +234,7 @@ def get_next_message_route():
         q_int = int(q_num)
         msg = get_next_message(q_int)
     except Exception:
-        msg = "Invalid question number"
+        msg = "Número de pregunta no válido"
     return {"message": msg}
 
 @app.route("/dashboard", methods=["GET"])
@@ -352,7 +351,7 @@ def risk_result():
     preg_interval_code = (
         preg_interval if preg_interval in ("4_11", "12_plus") else None
     )
-    
+
     # Social / lifestyle
     smoking_status = (form.get("smoking_status") or "").strip()
     education_level = (form.get("education_level") or "").strip()
@@ -422,9 +421,9 @@ def risk_result():
                 "notes": gdm_res.get("notes", "")
             }
         else:
-            flash(gdm_res.get("error") or "GDM lookup failed; defaulting to cohort average.")
+            flash(gdm_res.get("error") or "Falló la búsqueda de riesgo de diabetes gestacional; se usará el promedio del grupo.")
     except Exception as e:
-        flash(f"GDM risk calculation error: {e}")
+        flash(f"Error al calcular el riesgo de diabetes gestacional: {e}")
 
     # ---- PTB ----
     try:
@@ -439,9 +438,9 @@ def risk_result():
                 "notes": ptb_res.get("notes", "")
             }
         else:
-            flash(ptb_res.get("error") or "PTB lookup failed; defaulting to cohort average.")
+            flash(ptb_res.get("error") or "Falló la búsqueda de riesgo de parto prematuro; se usará el promedio del grupo.")
     except Exception as e:
-        flash(f"PTB risk calculation error: {e}")
+        flash(f"Error al calcular el riesgo de parto prematuro: {e}")
 
     # ---- GHT (Pregnancy-Related Hypertension) ----
     try:
@@ -456,9 +455,9 @@ def risk_result():
                 "notes": ght_res.get("notes", "")
             }
         else:
-            flash(ght_res.get("error") or "Hypertension lookup failed; defaulting to cohort average.")
+            flash(ght_res.get("error") or "Falló la búsqueda de riesgo de hipertensión del embarazo; se usará el promedio del grupo.")
     except Exception as e:
-        flash(f"Hypertension risk calculation error: {e}")
+        flash(f"Error al calcular el riesgo de hipertensión del embarazo: {e}")
 
     return render_template(
         "risk_result.html",
@@ -495,7 +494,7 @@ def news():
             items = []
     except Exception as e:
         print("News feed fetch error:", e)
-        flash("Pregnancy Health News is temporarily unavailable. Please try again later.")
+        flash("Las noticias sobre salud en el embarazo no están disponibles temporalmente. Inténtelo de nuevo más tarde.")
         items = []
 
     by_category = {}
@@ -517,7 +516,7 @@ def news():
             continue
 
         # Backward compatibility / fallbacks
-        headline = it.get("headline") or it.get("plain_title") or it.get("pubmed_title") or "(No headline)"
+        headline = it.get("headline") or it.get("plain_title") or it.get("pubmed_title") or "(Sin título)"
         summary = it.get("summary") or it.get("plain_summary") or ""
 
         # Make a shallow copy so we don't mutate the original list
@@ -547,12 +546,12 @@ def news():
     resp_out.headers["Pragma"] = "no-cache"
     resp_out.headers["Expires"] = "0"
     return resp_out
-    
+
 @app.route("/references")
 def references():
     static_dir = app.static_folder or "static"
     if not os.path.exists(os.path.join(static_dir, "babyq_full_evidence_protected.html")):
-        flash("Evidence file not found in /static.")
+        flash("No se encontró el archivo de evidencia en /static.")
         return redirect(url_for("index"))
     return send_from_directory(static_dir, "babyq_full_evidence_protected.html")
 
@@ -616,6 +615,7 @@ def sitemap():
         "sitemap.xml",
         mimetype="application/xml"
     )
+
 @app.route("/")
 def home_redirect():
     return redirect(url_for("landing"))
@@ -634,7 +634,7 @@ def chat_proxy():
         data = request.get_json()
         message = data.get("message", "")
     except Exception:
-        return jsonify({"response": "(Invalid request)"}), 400
+        return jsonify({"response": "(Solicitud no válida)"}), 400
 
     # Forward to Stacy API running on your home H100
     try:
@@ -643,9 +643,9 @@ def chat_proxy():
             json={"message": message},
             timeout=60.0
         )
-        reply = resp.json().get("response", "(No response from Stacy)")
+        reply = resp.json().get("response", "(Sin respuesta de Stacy)")
     except Exception:
-        reply = "(Error contacting Stacy API)"
+        reply = "(Error al contactar la API de Stacy)"
 
     return jsonify({"response": reply})
 
