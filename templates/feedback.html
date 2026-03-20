@@ -1,63 +1,56 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Comentarios | BabyQ</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "base.html" %}
 
-    <!-- If base styling is shared via base.html CSS, this will inherit it -->
-    <style>
-        .feedback-container {
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 0 20px;
-            font-family: inherit;
-        }
+{% block content %}
+<style>
+    .feedback-container {
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 0 20px;
+        font-family: inherit;
+    }
 
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            text-decoration: none;
-            font-size: 14px;
-        }
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        text-decoration: none;
+        font-size: 14px;
+    }
 
-        h1 {
-            margin-top: 0;
-        }
+    h1 {
+        margin-top: 0;
+    }
 
-        p.intro {
-            margin-bottom: 30px;
-            color: #444;
-        }
+    p.intro {
+        margin-bottom: 30px;
+        color: #444;
+    }
 
-        label {
-            display: block;
-            margin-top: 20px;
-            margin-bottom: 6px;
-            font-weight: 600;
-        }
+    label {
+        display: block;
+        margin-top: 20px;
+        margin-bottom: 6px;
+        font-weight: 600;
+    }
 
-        textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 10px;
-            font-size: 14px;
-            resize: vertical;
-        }
+    textarea {
+        width: 100%;
+        min-height: 120px;
+        padding: 10px;
+        font-size: 14px;
+        resize: vertical;
+        box-sizing: border-box;
+    }
 
-        button {
-            margin-top: 30px;
-            padding: 10px 20px;
-            font-size: 15px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
+    button {
+        margin-top: 30px;
+        padding: 10px 20px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+</style>
 
 <div class="feedback-container">
 
-    <!-- Visible back link -->
     <a href="javascript:history.back()" class="back-link">← Volver</a>
 
     <h1>Comentarios</h1>
@@ -68,7 +61,7 @@
 
     <form action="/feedback" method="post">
 
-        <label for="q1">¿Qué pregunta quisiera que BabyQ o Stacy respondieran mejor?</label>
+        <label for="q1">¿Qué pregunta quisiera que BabyQ respondiera mejor?</label>
         <textarea id="q1" name="Question to improve"></textarea>
 
         <label for="q2">¿Hay alguna función o mejora que quisiera sugerir?</label>
@@ -81,6 +74,4 @@
     </form>
 
 </div>
-
-</body>
-</html>
+{% endblock %}

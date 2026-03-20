@@ -47,3 +47,8 @@ def login():
         return render_template('login.html')
 
     return render_template('login.html')
+
+@login_bp.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('login_bp.login'))
