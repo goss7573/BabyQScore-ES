@@ -26,14 +26,19 @@
 
     <h3 style="margin-top:18px;">Tu desglose L-E-N-S</h3>
     <div class="row">
-      {% for label, total in {"Lifestyle":50, "Exercise":14, "Nutrition":20, "Support":16}.items() %}
+      {% for key, label, total in [
+        ('Lifestyle', 'Estilo de vida', 50),
+        ('Exercise', 'Ejercicio', 14),
+        ('Nutrition', 'Nutrición', 20),
+        ('Support', 'Apoyo', 16)
+      ] %}
       <div class="col card" style="margin:0;">
         <div style="display:flex; justify-content:space-between;">
           <strong>{{ label }}</strong>
-          <span class="muted">{{ current.LENS[label] }}/{{ total }}</span>
+          <span class="muted">{{ current.LENS[key] }}/{{ total }}</span>
         </div>
         <div class="bar-bg" style="margin-top:8px;">
-          {% set pct = (current.LENS[label] / total * 100) if total>0 else 0 %}
+          {% set pct = (current.LENS[key] / total * 100) if total>0 else 0 %}
           <div class="bar-fill" style="width: {{ '%.1f' % pct }}%;"></div>
         </div>
       </div>
@@ -71,7 +76,7 @@
           <span class="muted">puntos</span>
           <span class="pill">{{ h.created_at }}</span>
           <span class="muted" style="margin-left:8px;">
-            L {{ h.LENS['Lifestyle'] }}/50 • E {{ h.LENS['Exercise'] }}/14 • N {{ h.LENS['Nutrition'] }}/20 • S {{ h.LENS['Support'] }}/16
+            EV {{ h.LENS['Lifestyle'] }}/50 • EJ {{ h.LENS['Exercise'] }}/14 • N {{ h.LENS['Nutrition'] }}/20 • A {{ h.LENS['Support'] }}/16
           </span>
         </li>
       {% endfor %}
