@@ -10,6 +10,21 @@
     color: #6a1b9a;
     text-align: center;
   }
+  .account-prompt {
+    text-align: center;
+    margin: 1rem 0 1.25rem 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #4b2991;
+  }
+  .account-prompt a {
+    color: #6a1b9a;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .account-prompt a:hover {
+    text-decoration: underline;
+  }
   .score {
     text-align: center;
     font-size: 28px;
@@ -91,19 +106,10 @@ async function getNextMessage(questionIndex, buttonEl){
 <div class="container">
   <h1>Resultados de tu puntaje BabyQ</h1>
 
-  <!--
-  <p style="
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 18px;
-    font-weight: 600;
-  ">
-    Crea una cuenta para seguir tu progreso — no se requiere correo electrónico.
-    <a href="{{ url_for('register_bp.register') }}" style="font-weight: 700;">
-     Haz clic aquí.
-    </a>
+  <p class="account-prompt">
+    Crea una cuenta para seguir tu progreso y tener tu panel personal.
+    <a href="{{ url_for('register_bp.register') }}">Haz clic aquí.</a>
   </p>
-  -->
 
   <div class="score">Puntaje total: {{ score }} / 100</div>
 
@@ -127,6 +133,11 @@ async function getNextMessage(questionIndex, buttonEl){
       <button class="que" onclick="getNextMessage({{ item.index }}, this)">¡Dame otro consejo!</button>
     </div>
   {% endfor %}
+
+  <p class="account-prompt">
+    ¿Quieres mejorar tu puntaje BabyQ con el tiempo? Crea una cuenta para guardar tus resultados y seguir tu progreso.
+    <a href="{{ url_for('register_bp.register') }}">Haz clic aquí.</a>
+  </p>
 
   <div class="btnrow">
     <form method="GET" action="{{ url_for('index') }}">
