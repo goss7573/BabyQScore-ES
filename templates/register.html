@@ -57,6 +57,7 @@
       position: relative;
       margin-bottom: 1rem;
     }
+
     .toggle-eye {
       position: absolute;
       right: 10px;
@@ -101,14 +102,14 @@
 </head>
 <body>
   <div class="form-container">
-     <h2>Crea tu cuenta BabyQ</h2>
-     <p style="font-size:0.95rem; color:#6a5585; margin-top:-0.5rem; margin-bottom:1.2rem; text-align:center;">
-       Crea una cuenta para seguir tus puntajes BabyQ con el tiempo y ver tu progreso.
-       Solo se requiere un nombre de usuario y una contraseña.
-  </p>
+    <h2>Crea tu cuenta BabyQ</h2>
+    <p style="font-size:0.95rem; color:#6a5585; margin-top:-0.5rem; margin-bottom:1.2rem; text-align:center;">
+      Crea una cuenta para seguir tus puntajes BabyQ con el tiempo y ver tu progreso.
+      Se requiere nombre de usuario, correo electrónico y contraseña.
+    </p>
 
     <form method="POST" action="{{ url_for('register_bp.register') }}">
-       <label for="username">Nombre de usuario</label>
+      <label for="username">Nombre de usuario</label>
       <input type="text"
              name="username"
              placeholder="Elige un nombre de usuario (letras y números)"
@@ -120,26 +121,23 @@
         Solo de 6 a 12 letras o números.
       </p>
 
-       <label for="email">Correo electrónico (opcional)</label>
-       <input type="email" name="email" placeholder="Correo electrónico (opcional)">
-       <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.5rem;">
-         Opcional para notificaciones.
-       </p>
+      <label for="email">Correo electrónico</label>
+      <input type="email" name="email" placeholder="Escribe tu correo electrónico" required>
 
-     <label for="reg-password">Contraseña</label>
-     <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.5rem;">
-       Mínimo 8 caracteres. Solo letras y números.
-     </p>
-     <div class="password-container">
-       <input type="password"
-              id="reg-password"
-              name="password"
-              placeholder="Contraseña"
-              minlength="8"
-              pattern="[A-Za-z0-9]+"
-              required>
-       <span class="toggle-eye" onclick="toggleRegPassword()">👁️</span>
-     </div>
+      <label for="reg-password">Contraseña</label>
+      <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.5rem;">
+        Mínimo 8 caracteres. Solo letras y números.
+      </p>
+      <div class="password-container">
+        <input type="password"
+               id="reg-password"
+               name="password"
+               placeholder="Contraseña"
+               minlength="8"
+               pattern="[A-Za-z0-9]+"
+               required>
+        <span class="toggle-eye" onclick="toggleRegPassword()">👁️</span>
+      </div>
 
       <label for="year_of_birth">Año de nacimiento</label>
       <select name="year_of_birth" required>
@@ -172,5 +170,3 @@
   </script>
 </body>
 </html>
-
-<!-- ---- END OF FILE register.html (with password-eye toggle added) ---- -->
