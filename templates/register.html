@@ -55,7 +55,7 @@
 
     .password-container {
       position: relative;
-      margin-bottom: 1rem;
+      margin-bottom: 0.35rem;
     }
 
     .toggle-eye {
@@ -125,9 +125,6 @@
       <input type="email" name="email" placeholder="Escribe tu correo electrónico" required>
 
       <label for="reg-password">Contraseña</label>
-      <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.5rem;">
-        Mínimo 8 caracteres. Solo letras y números.
-      </p>
       <div class="password-container">
         <input type="password"
                id="reg-password"
@@ -138,6 +135,9 @@
                required>
         <span class="toggle-eye" onclick="toggleRegPassword()">👁️</span>
       </div>
+      <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.2rem;">
+        Mínimo 8 caracteres. Solo letras y números.
+      </p>
 
       <label for="year_of_birth">Año de nacimiento</label>
       <select name="year_of_birth" required>
