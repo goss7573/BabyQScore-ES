@@ -105,7 +105,7 @@
     <h2>Crea tu cuenta BabyQ</h2>
     <p style="font-size:0.95rem; color:#6a5585; margin-top:-0.5rem; margin-bottom:1.2rem; text-align:center;">
       Crea una cuenta para seguir tus puntajes BabyQ con el tiempo y ver tu progreso.
-      Se requiere nombre de usuario, correo electrónico y contraseña.
+      Se requiere nombre de usuario, correo electrónico, país o región y contraseña.
     </p>
 
     <form method="POST" action="{{ url_for('register_bp.register') }}">
@@ -123,6 +123,16 @@
 
       <label for="email">Correo electrónico</label>
       <input type="email" name="email" placeholder="Escribe tu correo electrónico" required>
+
+      <label for="country">País o región</label>
+      <select name="country" required>
+        <option value="" selected disabled>Selecciona tu país o región</option>
+        <option value="United States">Estados Unidos</option>
+        <option value="Canada">Canadá</option>
+        <option value="Mexico">México</option>
+        <option value="Central America">Centroamérica</option>
+        <option value="South America">Sudamérica</option>
+      </select>
 
       <label for="reg-password">Contraseña</label>
       <div class="password-container">
