@@ -27,6 +27,14 @@ _MONTH_MAP = {
     "september": 9, "october": 10, "november": 11, "december": 12
 }
 
+_VALID_COUNTRIES = {
+    "United States",
+    "Canada",
+    "Mexico",
+    "Central America",
+    "South America"
+}
+
 def _to_int_or_none(v):
     try:
         if v is None:
@@ -60,6 +68,7 @@ def register():
         username = (request.form.get('username') or '').strip()
         email = (request.form.get('email') or '').strip().lower()
         password = request.form.get('password') or ''
+        country = (request.form.get('country') or '').strip()
 
         year_of_birth_raw = request.form.get('year_of_birth')
         due_month_raw = request.form.get('due_month')
@@ -70,9 +79,12 @@ def register():
         if email == '':
             email = None
 
-        if not username or not password:
+        if not username or not password or not email or not country:
             flash('Por favor complete todos los campos obligatorios.')
-            reminded = True
+            return render_template('register.html')
+
+        if country not in _VALID_COUNTRIES:
+            flash('Por favor seleccione un país o región válido.')
             return render_template('register.html')
 
         hashed_password = generate_password_hash(password)
@@ -83,10 +95,10 @@ def register():
 
             # 1. Create user (Postgres: use RETURNING to get the new id)
             c.execute("""
-                INSERT INTO users (name, email, password, year_of_birth, due_month)
-                VALUES (%s, %s, %s, %s, %s)
+                INSERT INTO users (name, email, password, year_of_birth, due_month, country)
+                VALUES (%s, %s, %s, %s, %s, %s)
                 RETURNING id
-            """, (username, email, hashed_password, year_of_birth, due_month))
+            """, (username, email, hashed_password, year_of_birth, due_month, country))
 
             row = c.fetchone()
             user_id = row[0] if row else None
