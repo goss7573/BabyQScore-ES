@@ -201,9 +201,17 @@ def index():
                 INSERT INTO assessments (
                     user_id, anon_id, created_at,
                     total_score, lifestyle, exercise, nutrition, support,
-                    no_questions
+                    no_questions,
+                    q1_alcohol, q2_smoking, q3_sleep, q4_prenatal_care, q5_exercise,
+                    q6_protein, q7_sugar, q8_mood, q9_vegetables, q10_support,
+                    q11_stress, q12_dental, q13_prenatal_vitamins, q14_dairy, q15_whole_grains
                 )
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                VALUES (
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s,
+                    %s, %s, %s, %s, %s,
+                    %s, %s, %s, %s, %s,
+                    %s, %s, %s, %s, %s
+                )
             """, (
                 user_id_val, anon_id_val, created_at,
                 total_score,
@@ -211,7 +219,10 @@ def index():
                 int(category_scores.get("Exercise", 0)),
                 int(category_scores.get("Nutrition", 0)),
                 int(category_scores.get("Support", 0)),
-                no_json
+                no_json,
+                answers[0], answers[1], answers[2], answers[3], answers[4],
+                answers[5], answers[6], answers[7], answers[8], answers[9],
+                answers[10], answers[11], answers[12], answers[13], answers[14]
             ))
             conn.commit()
         finally:
