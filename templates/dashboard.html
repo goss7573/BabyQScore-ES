@@ -27,10 +27,10 @@
     <h3 style="margin-top:18px;">Tu desglose</h3>
     <div class="row">
       {% for key, label, total in [
-        ('Lifestyle', 'Estilo de vida', 50),
+        ('Lifestyle', 'Estilo de vida', 54),
         ('Exercise', 'Ejercicio', 14),
         ('Nutrition', 'Nutrición', 20),
-        ('Support', 'Apoyo', 16)
+        ('Support', 'Apoyo', 12)
       ] %}
       <div class="col card" style="margin:0;">
         <div style="display:flex; justify-content:space-between;">
@@ -76,7 +76,7 @@
           <span class="muted">puntos</span>
           <span class="pill">{{ h.created_at }}</span>
           <span class="muted" style="margin-left:8px;">
-            EV {{ h.LENS['Lifestyle'] }}/50 • EJ {{ h.LENS['Exercise'] }}/14 • N {{ h.LENS['Nutrition'] }}/20 • A {{ h.LENS['Support'] }}/16
+            EV {{ h.LENS['Lifestyle'] }}/54 • EJ {{ h.LENS['Exercise'] }}/14 • N {{ h.LENS['Nutrition'] }}/20 • A {{ h.LENS['Support'] }}/12
           </span>
         </li>
       {% endfor %}
