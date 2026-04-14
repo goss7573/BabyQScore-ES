@@ -124,10 +124,10 @@ QUESTIONS = [
 
 POINTS = [19, 19, 6, 4, 14, 4, 4, 6, 4, 4, 2, 2, 4, 4, 4]
 
-LIFESTYLE = {1, 2, 3, 4, 11, 12}
+LIFESTYLE = {1, 2, 3, 4, 12, 13}
 EXERCISE  = {5}
-NUTRITION = {6, 7, 9, 13, 14, 15}
-SUPPORT   = {8, 10}
+NUTRITION = {6, 7, 9, 14, 15}
+SUPPORT   = {8, 10, 11}
 
 @app.route("/index", methods=["GET", "POST"])
 def index():
@@ -143,7 +143,7 @@ def index():
     answers = []
     total_score = 0
     category_scores = {"Lifestyle": 0, "Exercise": 0, "Nutrition": 0, "Support": 0}
-    category_totals = {"Lifestyle": 50, "Exercise": 14, "Nutrition": 20, "Support": 16}
+    category_totals = {"Lifestyle": 54, "Exercise": 14, "Nutrition": 20, "Support": 12}
     no_questions = []
 
     for i in range(len(QUESTIONS)):
@@ -303,7 +303,7 @@ def dashboard():
     return render_template("dashboard.html",
                            current=current,
                            history=history,
-                           category_totals={"Lifestyle": 50, "Exercise": 14, "Nutrition": 20, "Support": 16},
+                           category_totals={"Lifestyle": 54, "Exercise": 14, "Nutrition": 20, "Support": 12},
                            work_items=work_items)
 
 @app.route("/risk", methods=["GET"])
