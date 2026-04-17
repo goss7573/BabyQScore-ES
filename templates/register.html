@@ -6,40 +6,61 @@
   <title>Crea tu cuenta BabyQ</title>
 
   <style>
+    :root {
+      --bg-main: #FFF8F8;
+      --bg-soft: #E6DDF5;
+      --bg-card: #ffffff;
+      --text-main: #342447;
+      --text-soft: #66577a;
+      --purple: #6A1B9B;
+      --purple-dark: #53157a;
+      --border: #ddcdea;
+      --shadow: 0 18px 40px rgba(106, 27, 155, 0.10);
+    }
+
     body {
-      font-family: "Helvetica Neue", Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      min-height: 100vh;
+      font-family: "Nunito", Arial, sans-serif;
+      background: var(--bg-soft);
+      color: var(--text-main);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #fbe5f4 0%, #e9dbff 100%);
-      color: #3a2b4b;
+      min-height: 100vh;
+      padding: 20px;
     }
 
     .form-container {
-      background-color: #ffffff;
-      padding: 2.2rem 2rem;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      background: var(--bg-card);
+      padding: 2.5rem 2.2rem;
+      border-radius: 22px;
+      box-shadow: var(--shadow);
       width: 100%;
       max-width: 420px;
-      box-sizing: border-box;
+      border: 1px solid var(--border);
     }
 
     .form-container h2 {
       text-align: center;
-      color: #4a2b84;
-      margin-bottom: 1.4rem;
-      font-size: 1.6rem;
+      color: var(--purple);
+      font-family: "Poppins", "Montserrat", Arial;
+      margin-bottom: 0.8rem;
+      font-size: 1.9rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
     }
 
     label {
       display: block;
       font-size: 0.9rem;
       margin-bottom: 0.25rem;
-      color: #4a2b84;
+      color: var(--purple);
+      font-weight: 600;
     }
 
     input,
@@ -47,15 +68,19 @@
       width: 100%;
       padding: 0.75rem;
       margin-bottom: 1rem;
-      border: 1px solid #d6c7eb;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
       font-size: 1rem;
-      box-sizing: border-box;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--purple);
     }
 
     .password-container {
       position: relative;
-      margin-bottom: 0.35rem;
     }
 
     .toggle-eye {
@@ -64,24 +89,33 @@
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
-      color: #5e3bea;
-      user-select: none;
+      color: var(--purple);
+    }
+
+    .hint {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-top: -0.6rem;
+      margin-bottom: 1rem;
     }
 
     button {
       width: 100%;
-      padding: 0.8rem;
-      background: linear-gradient(90deg, #b16be3 0%, #f28ac9 100%);
+      padding: 0.9rem;
+      background: var(--purple);
       color: #fff;
       border: none;
-      border-radius: 50px;
-      cursor: pointer;
+      border-radius: 999px;
       font-size: 1rem;
-      transition: transform 0.2s;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 10px 24px rgba(106, 27, 155, 0.18);
     }
 
     button:hover {
-      transform: scale(1.04);
+      background: var(--purple-dark);
+      transform: translateY(-1px);
     }
 
     .login-link {
@@ -91,7 +125,8 @@
     }
 
     .login-link a {
-      color: #b16be3;
+      color: var(--purple);
+      font-weight: 700;
       text-decoration: none;
     }
 
@@ -100,33 +135,33 @@
     }
   </style>
 </head>
+
 <body>
+
   <div class="form-container">
     <h2>Crea tu cuenta BabyQ</h2>
-    <p style="font-size:0.95rem; color:#6a5585; margin-top:-0.5rem; margin-bottom:1.2rem; text-align:center;">
-      Crea una cuenta para seguir tus puntajes BabyQ con el tiempo y ver tu progreso.
-      Se requiere nombre de usuario, correo electrónico, país o región y contraseña.
+
+    <p class="subtitle">
+      Guarda tus puntajes BabyQ y sigue tu progreso con el tiempo.
     </p>
 
     <form method="POST" action="{{ url_for('register_bp.register') }}">
-      <label for="username">Nombre de usuario</label>
+
+      <label>Nombre de usuario</label>
       <input type="text"
              name="username"
-             placeholder="Elige un nombre de usuario (letras y números)"
              minlength="6"
              maxlength="12"
              pattern="[A-Za-z0-9]+"
              required>
-      <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.5rem;">
-        Solo de 6 a 12 letras o números.
-      </p>
+      <div class="hint">6–12 caracteres (solo letras y números)</div>
 
-      <label for="email">Correo electrónico</label>
-      <input type="email" name="email" placeholder="Escribe tu correo electrónico" required>
+      <label>Correo electrónico</label>
+      <input type="email" name="email" required>
 
-      <label for="country">País o región</label>
+      <label>País o región</label>
       <select name="country" required>
-        <option value="" selected disabled>Selecciona tu país o región</option>
+        <option value="" disabled selected>Selecciona tu país o región</option>
         <option value="United States">Estados Unidos</option>
         <option value="Canada">Canadá</option>
         <option value="Mexico">México</option>
@@ -134,29 +169,26 @@
         <option value="South America">Sudamérica</option>
       </select>
 
-      <label for="reg-password">Contraseña</label>
+      <label>Contraseña</label>
       <div class="password-container">
         <input type="password"
                id="reg-password"
                name="password"
-               placeholder="Contraseña"
                minlength="8"
                pattern="[A-Za-z0-9]+"
                required>
         <span class="toggle-eye" onclick="toggleRegPassword()">👁️</span>
       </div>
-      <p style="font-size:0.85rem; color:#6a5585; margin-top:-0.2rem;">
-        Mínimo 8 caracteres. Solo letras y números.
-      </p>
+      <div class="hint">Mínimo 8 caracteres</div>
 
-      <label for="year_of_birth">Año de nacimiento</label>
+      <label>Año de nacimiento</label>
       <select name="year_of_birth" required>
         {% for year in range(1950, 2025) %}
           <option value="{{ year }}">{{ year }}</option>
         {% endfor %}
       </select>
 
-      <label for="due_month">Mes probable de parto</label>
+      <label>Mes probable de parto</label>
       <select name="due_month" required>
         {% for month in ["January","February","March","April","May","June",
                          "July","August","September","October","November","December"] %}
@@ -168,7 +200,8 @@
     </form>
 
     <div class="login-link">
-      ¿Ya tiene una cuenta? <a href="{{ url_for('login_bp.login') }}">Inicie sesión</a>
+      ¿Ya tiene una cuenta?
+      <a href="{{ url_for('login_bp.login') }}">Inicie sesión</a>
     </div>
   </div>
 
@@ -178,5 +211,6 @@
       input.type = (input.type === 'password') ? 'text' : 'password';
     }
   </script>
+
 </body>
 </html>
