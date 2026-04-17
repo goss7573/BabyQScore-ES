@@ -1,13 +1,149 @@
 {% extends "base.html" %}
 {% block content %}
+
+<style>
+  :root {
+    --bg-main: #FFF8F8;
+    --surface: #ffffff;
+    --surface-soft: #f1e8f8;
+    --text: #2f2240;
+    --text-soft: #625676;
+    --purple: #6A1B9B;
+    --purple-dark: #53157a;
+    --border: #dfcfee;
+    --shadow: 0 18px 40px rgba(106, 27, 155, 0.10);
+  }
+
+  body {
+    background: var(--bg-main);
+    font-family: "Nunito", Arial, sans-serif;
+  }
+
+  .calc-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+  }
+
+  .calc-title {
+    text-align: center;
+    color: var(--purple);
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+    font-size: 2.4rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .calc-subtitle {
+    text-align: center;
+    color: var(--text-soft);
+    margin-bottom: 2.2rem;
+    font-size: 1.05rem;
+  }
+
+  .calc-card {
+    background: rgba(255,255,255,0.85);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 2.2rem;
+    box-shadow: var(--shadow);
+  }
+
+  .section-title {
+    color: var(--purple);
+    margin-top: 1.6rem;
+    margin-bottom: 1rem;
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 1.25rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .form-row .form-group {
+    flex: 1;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-size: 0.95rem;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--purple);
+  }
+
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .checklist.columns {
+    columns: 2;
+  }
+
+  .checklist label {
+    margin-bottom: 0.3rem;
+  }
+
+  .form-hint {
+    color: var(--text-soft);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+  }
+
+  .actions {
+    text-align: center;
+    margin-top: 2.2rem;
+  }
+
+  .btn-primary {
+    background: var(--purple);
+    color: #fff;
+    padding: 0.9rem 2.8rem;
+    border-radius: 999px;
+    border: none;
+    font-weight: 700;
+    font-family: "Montserrat", Arial, sans-serif;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(106, 27, 155, 0.18);
+    transition: 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--purple-dark);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    .checklist.columns {
+      columns: 1;
+    }
+  }
+</style>
+
 <div class="calc-container">
   <h2 class="calc-title">Calculadora de complicaciones del embarazo</h2>
-  <p class="calc-subtitle">Comprenda sus riesgos de parto prematuro, diabetes gestacional y preeclampsia, a partir de datos derivados del CDC.</p>
+  <p class="calc-subtitle">
+    Comprenda sus riesgos de parto prematuro, diabetes gestacional y preeclampsia, a partir de datos derivados del CDC.
+  </p>
 
   <form method="POST" action="/risk_result" class="calc-card" id="risk-form">
 
-    <!-- Demographics -->
     <h3 class="section-title">Datos demográficos e información física</h3>
+
     <div class="form-group">
       <label>Edad (años):</label>
       <input type="number" name="age" class="form-control" min="10" max="60" required>
@@ -40,11 +176,11 @@
     <div class="form-row">
       <div class="form-group">
         <label>Estatura (pies):</label>
-        <input type="number" name="height_feet" class="form-control" placeholder="pies" min="3" max="7" required>
+        <input type="number" name="height_feet" class="form-control" min="3" max="7" required>
       </div>
       <div class="form-group">
         <label>Estatura (pulgadas):</label>
-        <input type="number" name="height_inches" class="form-control" placeholder="pulgadas" min="0" max="11" required>
+        <input type="number" name="height_inches" class="form-control" min="0" max="11" required>
       </div>
     </div>
 
@@ -53,8 +189,8 @@
       <input type="text" name="zip" class="form-control" pattern="[0-9]{5}" maxlength="5">
     </div>
 
-    <!-- Pregnancy History -->
     <h3 class="section-title">Antecedentes del embarazo</h3>
+
     <div class="form-group">
       <label>¿Cuántas semanas de embarazo tiene?</label>
       <input type="number" name="weeks_pregnant" class="form-control" min="0" max="42" required>
@@ -63,52 +199,51 @@
     <div class="form-group">
       <label>Número de partos previos:</label>
       <input type="number" name="prior_births" id="prior_births" class="form-control" min="0" max="20" required>
-      <!-- Mirror to 'gravida' (hidden) so existing GDM route continues to receive a value -->
       <input type="hidden" name="gravida" id="gravida">
     </div>
 
     <div class="form-group">
-      <label>Si ha tenido partos previos, ¿ha tenido uno dentro de los últimos 13 meses?</label>
+      <label>¿Ha tenido un parto dentro de los últimos 13 meses?</label>
       <select name="preg_interval" class="form-control">
         <option value="">Seleccione...</option>
         <option value="4_11">Sí</option>
         <option value="12_plus">No</option>
       </select>
-      <div class="form-hint small-text">
-        Si no está segura o prefiere no contestar, déjelo en blanco; usaremos un valor promedio de riesgo para que la página de resultados nunca falle.
+      <div class="form-hint">
+        Si no está segura, déjelo en blanco — usaremos un valor promedio.
       </div>
     </div>
 
     <div class="checklist">
-      <label><input type="checkbox" name="hx_preterm"> Antecedente de parto prematuro previo</label>
-      <label><input type="checkbox" name="hx_gdm"> Antecedente de diabetes gestacional previa</label>
+      <label><input type="checkbox" name="hx_preterm"> Antecedente de parto prematuro</label>
+      <label><input type="checkbox" name="hx_gdm"> Antecedente de diabetes gestacional</label>
     </div>
 
-    <!-- Medical History -->
     <h3 class="section-title">Antecedentes médicos</h3>
+
     <div class="checklist columns">
-      <label><input type="checkbox" name="hx_htn"> Hipertensión (presión arterial alta)</label>
-      <label><input type="checkbox" name="hx_diabetes"> Diabetes (tipo 1 o tipo 2)</label>
+      <label><input type="checkbox" name="hx_htn"> Hipertensión</label>
+      <label><input type="checkbox" name="hx_diabetes"> Diabetes</label>
       <label><input type="checkbox" name="fam_diabetes"> Antecedentes familiares de diabetes</label>
       <label><input type="checkbox" name="hx_depression"> Depresión</label>
-      <label><input type="checkbox" name="hx_thyroid"> Enfermedad de la tiroides</label>
-      <label><input type="checkbox" name="hx_autoimmune"> Enfermedad autoinmune (lupus, artritis reumatoide, etc.)</label>
-      <label><input type="checkbox" name="hx_pcos"> SOP (síndrome de ovario poliquístico)</label>
-      <label><input type="checkbox" name="hx_cervical"> Anormalidades o procedimientos cervicales</label>
-      <label><input type="checkbox" name="hx_macrosomia"> Bebé previo de más de 9 libras (4100 g)</label>
-      <label><input type="checkbox" name="fam_preterm"> Antecedentes familiares de parto prematuro (madre o hermana)</label>
-      <label><input type="checkbox" name="fam_preeclampsia"> Antecedentes familiares de preeclampsia (madre o hermana)</label>
+      <label><input type="checkbox" name="hx_thyroid"> Enfermedad tiroidea</label>
+      <label><input type="checkbox" name="hx_autoimmune"> Enfermedad autoinmune</label>
+      <label><input type="checkbox" name="hx_pcos"> SOP</label>
+      <label><input type="checkbox" name="hx_cervical"> Problemas cervicales</label>
+      <label><input type="checkbox" name="hx_macrosomia"> Bebé mayor de 9 libras</label>
+      <label><input type="checkbox" name="fam_preterm"> Parto prematuro familiar</label>
+      <label><input type="checkbox" name="fam_preeclampsia"> Preeclampsia familiar</label>
     </div>
 
-    <!-- Lifestyle & Social -->
-    <h3 class="section-title">Estilo de vida y factores sociales</h3>
+    <h3 class="section-title">Estilo de vida</h3>
+
     <div class="form-group">
       <label>Tabaquismo:</label>
       <select name="smoking_status" class="form-control" required>
         <option value="">Seleccione...</option>
-        <option>Non-smoker / No fuma</option>
-        <option>Former smoker / Exfumadora</option>
-        <option>Current smoker / Fumadora actual</option>
+        <option>No fuma</option>
+        <option>Exfumadora</option>
+        <option>Fumadora actual</option>
       </select>
     </div>
 
@@ -116,9 +251,9 @@
       <label>Nivel educativo:</label>
       <select name="education_level" class="form-control">
         <option value="">Seleccione...</option>
-        <option>High school or less / Secundaria o menos</option>
-        <option>Some college / Algo de universidad</option>
-        <option>Bachelor's or higher / Licenciatura o más</option>
+        <option>Secundaria o menos</option>
+        <option>Algo de universidad</option>
+        <option>Licenciatura o más</option>
       </select>
     </div>
 
@@ -126,35 +261,35 @@
       <label>Tipo de seguro:</label>
       <select name="insurance_type" class="form-control">
         <option value="">Seleccione...</option>
-        <option>Private / Privado</option>
-        <option>National Health Service / Servicio nacional de salud</option>
-        <option>Uninsured / Sin seguro</option>
+        <option>Privado</option>
+        <option>Servicio nacional de salud</option>
+        <option>Sin seguro</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label>El cuidado prenatal comenzó a las (semanas):</label>
-      <input type="number" name="prenatal_start" class="form-control" min="0" max="40">
+      <label>Inicio del cuidado prenatal (semanas):</label>
+      <input type="number" name="prenatal_start" class="form-control">
     </div>
 
     <div class="form-group">
       <label>Tipo de embarazo:</label>
       <select name="pregnancy_type" class="form-control">
         <option value="">Seleccione...</option>
-        <option>Singleton / Un bebé</option>
-        <option>Twins / Gemelos</option>
-        <option>Triplets or more / Trillizos o más</option>
+        <option>Un bebé</option>
+        <option>Gemelos</option>
+        <option>Trillizos o más</option>
       </select>
     </div>
 
     <div class="actions">
       <button type="submit" class="btn-primary">Calcular mi riesgo</button>
     </div>
+
   </form>
 </div>
 
 <script>
-  // Keep existing backend happy by mirroring prior_births -> hidden 'gravida'
   (function(){
     const prior = document.getElementById('prior_births');
     const grav = document.getElementById('gravida');
@@ -166,4 +301,5 @@
     }
   })();
 </script>
+
 {% endblock %}
