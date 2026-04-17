@@ -1,92 +1,316 @@
-{% extends "base.html" %}
+from pathlib import Path
+
+replacement = r'''{% extends "base.html" %}
 {% block content %}
+
 <style>
-  .container {
-    max-width: 900px;
-    margin: auto;
-    padding: 1rem;  /* breathing room on mobile */
+  :root {
+    --bg-main: #FFF8F8;
+    --bg-soft: #E6DDF5;
+    --bg-card: #ffffff;
+    --bg-muted: #F1F1F1;
+    --text-main: #342447;
+    --text-soft: #66577a;
+    --purple: #6A1B9B;
+    --purple-dark: #53157a;
+    --lavender-accent: #A1A9FE;
+    --soft-pink: #F7E1F7;
+    --baby-pink: #FDA0C7;
+    --border: #ddcdea;
+    --shadow: 0 18px 40px rgba(106, 27, 155, 0.10);
+    --radius-xl: 28px;
+    --radius-lg: 22px;
+    --radius-md: 16px;
+    --max-width: 1180px;
   }
-  h1 {
-    color: #6a1b9a;
-    text-align: center;
+
+  body {
+    margin: 0;
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: "Nunito", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.65;
   }
-  .account-prompt {
-    text-align: center;
-    margin: 1rem 0 1.25rem 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: #4b2991;
+
+  .result-page * {
+    box-sizing: border-box;
   }
-  .account-prompt a {
-    color: #6a1b9a;
-    font-weight: 700;
+
+  .result-page {
+    background: var(--bg-main);
+  }
+
+  .result-page a {
     text-decoration: none;
   }
-  .account-prompt a:hover {
-    text-decoration: underline;
+
+  .page {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 34px 24px 80px;
   }
-  .score {
+
+  .result-header {
     text-align: center;
-    font-size: 28px;
-    margin: 18px 0;
-    color: #4b2991;
+    margin-bottom: 24px;
   }
+
+  .result-header h1 {
+    margin: 0 0 8px;
+    color: var(--purple);
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+    font-size: clamp(2.2rem, 4vw, 3.35rem);
+    line-height: 1.08;
+    letter-spacing: -0.8px;
+  }
+
+  .score {
+    margin: 0;
+    color: var(--purple);
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.15;
+  }
+
+  .dashboard-card {
+    background: rgba(230, 221, 245, 0.75);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    padding: 30px 28px;
+    text-align: center;
+    margin: 8px 0 28px;
+  }
+
+  .dashboard-card h2 {
+    margin: 0 0 10px;
+    color: var(--purple);
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.35rem);
+    line-height: 1.12;
+    letter-spacing: -0.4px;
+  }
+
+  .dashboard-card p {
+    margin: 0 auto 14px;
+    max-width: 760px;
+    color: var(--text-main);
+    font-size: 1.04rem;
+  }
+
+  .dashboard-note {
+    color: var(--text-soft) !important;
+    font-size: 0.98rem !important;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .que {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    border: none;
+    border-radius: 999px;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.98rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  }
+
+  .btn-primary {
+    background: var(--purple);
+    color: #fff;
+    padding: 0 22px;
+    box-shadow: 0 12px 24px rgba(106, 27, 155, 0.18);
+  }
+
+  .btn-primary:hover,
+  .que:hover {
+    background: var(--purple-dark);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: #fff;
+    color: var(--purple);
+    border: 1px solid var(--border);
+    padding: 0 22px;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--lavender-accent);
+    transform: translateY(-1px);
+  }
+
+  .score-bars {
+    margin-top: 2px;
+  }
+
+  .score-row {
+    margin-bottom: 16px;
+  }
+
   .bar-label {
-    font-weight: bold;
-    margin-top: 18px;
+    font-weight: 700;
     margin-bottom: 6px;
+    color: var(--text-main);
   }
+
   .bar {
-    height: 24px;
-    background: #ddd;
-    border-radius: 12px;
+    height: 18px;
+    background: #d7cae7;
+    border-radius: 999px;
     overflow: hidden;
+    position: relative;
   }
+
   .fill {
     height: 100%;
-    background: #6a1b9a;
+    background: var(--purple);
+    border-radius: 999px;
     text-align: right;
     padding-right: 10px;
-    line-height: 24px;
+    line-height: 18px;
     color: #fff;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
   }
+
+  .strengths {
+    margin-top: 20px;
+    padding: 18px 18px 16px;
+    background: #edf4ed;
+    border-left: 4px solid #2e7d32;
+    border-radius: 16px;
+  }
+
+  .strengths h2 {
+    margin: 0 0 6px;
+    color: var(--text-main);
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+    font-size: 1.55rem;
+    line-height: 1.15;
+  }
+
+  .strengths p {
+    margin: 0;
+    color: var(--text-main);
+  }
+
+  .section-divider {
+    border: 0;
+    height: 1px;
+    background: #e7d7f0;
+    margin: 22px 0 18px;
+  }
+
+  .section-title {
+    margin: 0 0 14px;
+    color: var(--text-main);
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    line-height: 1.12;
+    letter-spacing: -0.4px;
+  }
+
   .card {
-    background: #fff;
-    border-left: 6px solid #6a1b9a;
-    padding: 14px;
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--baby-pink);
+    padding: 16px 16px 14px;
     margin-top: 14px;
-    border-radius: 8px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(106, 27, 155, 0.06);
   }
+
+  .card p {
+    margin: 0 0 12px;
+    color: var(--text-main);
+    font-size: 1rem;
+  }
+
   .que {
-    margin-top: 8px;
-    background: #6a1b9a;
+    background: var(--purple);
     color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
-    cursor: pointer;
+    padding: 0 16px;
+    min-height: 40px;
+    font-size: 0.9rem;
+    box-shadow: 0 8px 18px rgba(106, 27, 155, 0.16);
   }
+
+  .account-prompt-bottom {
+    margin: 26px 0 0;
+    padding: 18px 18px 16px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    text-align: center;
+    color: var(--text-main);
+    box-shadow: 0 10px 24px rgba(106, 27, 155, 0.06);
+  }
+
+  .account-prompt-bottom a {
+    color: var(--purple);
+    font-weight: 700;
+  }
+
+  .account-prompt-bottom a:hover {
+    text-decoration: underline;
+  }
+
   .btnrow {
     text-align: center;
-    margin-top: 28px;
+    margin-top: 24px;
   }
+
+  .btnrow form {
+    display: inline-block;
+    margin: 0;
+  }
+
   .btn {
-    background: #6a1b9a;
+    background: var(--purple);
     color: #fff;
-    padding: 10px 24px;
-    font-size: 16px;
+    padding: 0 24px;
+    min-height: 48px;
+    font-size: 0.98rem;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
     border: none;
-    border-radius: 8px;
+    border-radius: 999px;
     cursor: pointer;
-    margin: 5px;
+    transition: transform 0.18s ease, background 0.18s ease;
+    box-shadow: 0 12px 24px rgba(106, 27, 155, 0.18);
   }
-  .strengths {
-    margin-top: 32px;
-    padding: 14px;
-    background: #e8f5e9;
-    border-left: 6px solid #2e7d32;
-    border-radius: 8px;
+
+  .btn:hover {
+    background: var(--purple-dark);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    .page {
+      padding: 24px 18px 64px;
+    }
+
+    .dashboard-card {
+      padding: 24px 18px;
+      border-radius: 22px;
+    }
+
+    .strengths,
+    .card,
+    .account-prompt-bottom {
+      border-radius: 14px;
+    }
+
+    .fill {
+      font-size: 0.82rem;
+      padding-right: 8px;
+    }
   }
 </style>
 
@@ -103,46 +327,70 @@ async function getNextMessage(questionIndex, buttonEl){
 }
 </script>
 
-<div class="container">
-  <h1>Resultados de tu puntaje BabyQ</h1>
-
-  <p class="account-prompt">
-    Crea una cuenta para seguir tu progreso y tener tu panel personal.
-    <a href="{{ url_for('register_bp.register') }}">Haz clic aquí.</a>
-  </p>
-
-  <div class="score">Puntaje total: {{ score }} / 100</div>
-
-  {% for category in category_scores.keys() %}
-    {% set sc = category_scores[category] %}
-    {% set tot = category_totals[category] %}
-    {% set pct = (sc / tot * 100) | round(0) %}
-    <div class="bar-label">{{ category }}: {{ sc }} / {{ tot }} puntos</div>
-    <div class="bar"><div class="fill" style="width: {{ pct }}%;">{{ pct }}%</div></div>
-  {% endfor %}
-
-  <div class="strengths">
-    <h2>✅ Tus fortalezas</h2>
-    <p>Ya tienes {{ strengths_count }} respuestas alineadas con las recomendaciones de ACOG. Sigue con estos hábitos saludables.</p>
-  </div>
-
-  <h2 style="margin-top:32px;">Áreas para mejorar</h2>
-  {% for item in messages %}
-    <div class="card">
-      <p>{{ item.text }}</p>
-      <button class="que" onclick="getNextMessage({{ item.index }}, this)">¡Dame otro consejo!</button>
+<div class="result-page">
+  <div class="page">
+    <div class="result-header">
+      <h1>Resultados de tu puntaje BabyQ</h1>
+      <p class="score">Puntaje total: {{ score }} / 100</p>
     </div>
-  {% endfor %}
 
-  <p class="account-prompt">
-    ¿Quieres mejorar tu puntaje BabyQ con el tiempo? Crea una cuenta para guardar tus resultados y seguir tu progreso.
-    <a href="{{ url_for('register_bp.register') }}">Haz clic aquí.</a>
-  </p>
+    <div class="dashboard-card">
+      <h2>Crea tu panel. Guarda tu progreso.</h2>
+      <p>
+        Guarda este puntaje en tu panel personal BabyQ para seguir tu progreso con el tiempo,
+        volver a ver tus mensajes y construir un embarazo más saludable paso a paso.
+      </p>
+      <p class="dashboard-note">
+        Tu panel convierte un solo puntaje en un plan continuo para tu embarazo.
+      </p>
+      <a href="{{ url_for('register_bp.register') }}" class="btn-primary">Crear mi panel</a>
+    </div>
 
-  <div class="btnrow">
-    <form method="GET" action="{{ url_for('index') }}">
-      <button type="submit" class="btn">Volver a hacer BabyQ</button>
-    </form>
+    <div class="score-bars">
+      {% for category in category_scores.keys() %}
+        {% set sc = category_scores[category] %}
+        {% set tot = category_totals[category] %}
+        {% set pct = (sc / tot * 100) | round(0) %}
+        <div class="score-row">
+          <div class="bar-label">{{ category }}: {{ sc }} / {{ tot }} puntos</div>
+          <div class="bar">
+            <div class="fill" style="width: {{ pct }}%;">{{ pct }}%</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="strengths">
+      <h2>✅ Tus fortalezas</h2>
+      <p>Ya tienes {{ strengths_count }} respuestas alineadas con las recomendaciones de ACOG. Sigue con estos hábitos saludables.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <h2 class="section-title">Áreas para mejorar</h2>
+    {% for item in messages %}
+      <div class="card">
+        <p>{{ item.text }}</p>
+        <button class="que" onclick="getNextMessage({{ item.index }}, this)">¡Dame otro consejo!</button>
+      </div>
+    {% endfor %}
+
+    <div class="account-prompt-bottom">
+      ¿Quieres mejorar tu puntaje BabyQ con el tiempo? Crea una cuenta para guardar tus resultados y seguir tu progreso.
+      <a href="{{ url_for('register_bp.register') }}">Haz clic aquí.</a>
+    </div>
+
+    <div class="btnrow">
+      <form method="GET" action="{{ url_for('index') }}">
+        <button type="submit" class="btn">Volver a hacer BabyQ</button>
+      </form>
+    </div>
   </div>
 </div>
+
 {% endblock %}
+'''
+
+out = Path('/mnt/data/result_es_full_replacement.html')
+out.write_text(replacement)
+print(f"Wrote {out} with {len(replacement.splitlines())} lines")
