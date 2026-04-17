@@ -2,303 +2,636 @@
 {% block content %}
 
 <style>
+  :root {
+    --bg-main: #FFF8F8;
+    --bg-soft: #E6DDF5;
+    --bg-card: #ffffff;
+    --bg-muted: #F1F1F1;
+    --text-main: #342447;
+    --text-soft: #66577a;
+    --purple: #6A1B9B;
+    --purple-dark: #53157a;
+    --lavender-accent: #A1A9FE;
+    --soft-pink: #F7E1F7;
+    --baby-pink: #FDA0C7;
+    --border: #ddcdea;
+    --shadow: 0 18px 40px rgba(106, 27, 155, 0.10);
+    --radius-xl: 28px;
+    --radius-lg: 22px;
+    --radius-md: 16px;
+    --max-width: 1180px;
+  }
+
   body {
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    color: #3a2b4b;
-    background-color: #fffafc;
     margin: 0;
-    padding: 0;
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: "Nunito", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.65;
   }
 
-  .hero {
-    background: linear-gradient(135deg, #fbe5f4 0%, #e9dbff 100%);
-    text-align: center;
-    padding: 5rem 1rem 6rem 1rem;
+  .landing-page * {
+    box-sizing: border-box;
   }
 
-  .hero h1 {
-    font-size: 2.6rem;
-    color: #4a2b84;
-    margin-bottom: 1rem;
+  .landing-page {
+    background: var(--bg-main);
   }
 
-  .hero p {
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto 2rem auto;
-    line-height: 1.6;
+  .landing-page a {
+    text-decoration: none;
   }
 
-  .button-group {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(255, 248, 248, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-wrap {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 16px 24px;
     display: flex;
-    justify-content: center;
-    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .brand {
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--purple);
+    letter-spacing: 0.2px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
     flex-wrap: wrap;
   }
 
-  .btn-primary {
-    background: linear-gradient(90deg, #b16be3 0%, #f28ac9 100%);
-    color: white;
-    padding: 0.9rem 2rem;
-    border: none;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    text-decoration: none;
-    transition: transform 0.2s;
-  }
-
-  .btn-primary:hover {
-    transform: scale(1.05);
-  }
-
-  .btn-secondary {
-    background-color: transparent;
-    border: 2px solid #b16be3;
-    color: #b16be3;
-    padding: 0.9rem 2rem;
-    border-radius: 50px;
-    font-size: 1.1rem;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .btn-secondary:hover {
-    background-color: #b16be3;
-    color: white;
-  }
-
-  .features {
-    text-align: center;
-    padding: 3rem 1rem 2rem 1rem;
-  }
-
-  .features h2 {
-    color: #4a2b84;
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-  }
-
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .feature {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    padding: 1.5rem;
-  }
-
-  .feature h3 {
-    color: #4a2b84;
-    margin-top: 0.5rem;
-    font-size: 1.2rem;
-  }
-
-  .benefits {
-    background-color: #fff3fa;
-    padding: 3rem 1rem;
-    text-align: center;
-  }
-
-  .benefits h2 {
-    color: #4a2b84;
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-  }
-
-  .benefits p {
-    margin-bottom: 2rem;
-    font-size: 1.05rem;
-  }
-
-  .benefit-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .benefit {
-    background: white;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    text-align: left;
-  }
-
-  .cta {
-    text-align: center;
-    padding: 4rem 1rem;
-  }
-
-  .cta h2 {
-    color: #4a2b84;
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .cta p {
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
-  }
-
-  footer {
-    background-color: #faf7fb;
-    color: #6a5585;
-    text-align: center;
-    padding: 2rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  footer a {
-    color: #b16be3;
-    text-decoration: none;
-    margin: 0 0.5rem;
-  }
-
-  footer a:hover {
-    text-decoration: underline;
-  }
-
-  .language-switch {
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
-  }
-
-  .language-switch a {
-    color: #6a5585;
-    text-decoration: none;
+  .nav-links a {
+    color: var(--text-soft);
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.97rem;
     font-weight: 600;
   }
 
-  .language-switch a:hover {
+  .nav-links a:hover {
+    color: var(--purple);
+  }
+
+  .nav-cta {
+    background: var(--purple);
+    color: #fff !important;
+    padding: 11px 18px;
+    border-radius: 999px;
+    font-weight: 700;
+    box-shadow: 0 10px 24px rgba(106, 27, 155, 0.18);
+  }
+
+  .nav-cta:hover {
+    background: var(--purple-dark);
+  }
+
+  .page {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 34px 24px 80px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 40px;
+    align-items: center;
+    padding: 40px 0 56px;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    background: var(--soft-pink);
+    color: var(--purple);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+
+  .hero h1 {
+    margin: 0 0 18px;
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+    font-size: clamp(2.35rem, 4vw, 4.25rem);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    color: var(--text-main);
+  }
+
+  .hero p {
+    margin: 0 0 16px;
+    font-size: 1.08rem;
+    color: var(--text-soft);
+    max-width: 640px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 0 22px;
+    border-radius: 999px;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  }
+
+  .btn-primary {
+    background: var(--purple);
+    color: #fff;
+    box-shadow: 0 12px 24px rgba(106, 27, 155, 0.18);
+  }
+
+  .btn-primary:hover {
+    background: var(--purple-dark);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: #fff;
+    color: var(--purple);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--lavender-accent);
+    transform: translateY(-1px);
+  }
+
+  .trust-line {
+    margin-top: 18px;
+    font-size: 0.96rem;
+    color: var(--text-soft);
+  }
+
+  .hero-media {
+    position: relative;
+  }
+
+  .hero-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 32px;
+    padding: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .hero-card img {
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    object-fit: cover;
+    border-radius: 24px;
+    display: block;
+    background: var(--bg-soft);
+  }
+
+  .hero-fallback {
+    width: 100%;
+    min-height: 520px;
+    border-radius: 24px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 32px;
+    background: var(--bg-soft);
+    color: var(--text-soft);
+    font-size: 1rem;
+    border: 1px dashed var(--lavender-accent);
+  }
+
+  .image-note {
+    margin-top: 12px;
+    color: var(--text-soft);
+    font-size: 0.88rem;
+    text-align: center;
+  }
+
+  .section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 34px;
+    align-items: center;
+    margin: 28px 0;
+    padding: 24px 0;
+  }
+
+  .text-card,
+  .visual-card {
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+  }
+
+  .text-card {
+    padding: 40px;
+  }
+
+  .text-card h2 {
+    margin: 0 0 16px;
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+    font-size: clamp(1.85rem, 2.8vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.6px;
+    color: var(--text-main);
+  }
+
+  .text-card p {
+    margin: 0 0 14px;
+    color: var(--text-soft);
+    font-size: 1.05rem;
+  }
+
+  .mini-label {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: var(--purple);
+    background: var(--soft-pink);
+    border-radius: 999px;
+    padding: 7px 13px;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .visual-card {
+    padding: 18px;
+  }
+
+  .visual-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 22px;
+    background: var(--bg-soft);
+  }
+
+  .visual-frame {
+    min-height: 360px;
+    border-radius: 22px;
+    background: var(--bg-soft);
+    border: 1px dashed var(--lavender-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+    color: var(--text-soft);
+  }
+
+  .visual-frame strong {
+    display: block;
+    color: var(--purple);
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+  }
+
+  .visual-frame span {
+    display: block;
+    max-width: 320px;
+    font-size: 0.98rem;
+  }
+
+  .divider {
+    height: 1px;
+    background: #e7d7f0;
+    margin: 8px 0 2px;
+  }
+
+  .bottom-cta {
+    margin-top: 44px;
+    background: var(--purple);
+    color: #fff;
+    border-radius: 30px;
+    padding: 42px 34px;
+    box-shadow: 0 20px 44px rgba(106, 27, 155, 0.18);
+    text-align: center;
+  }
+
+  .bottom-cta h3 {
+    margin: 0 0 12px;
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+    font-size: clamp(1.8rem, 2.8vw, 2.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.6px;
+  }
+
+  .bottom-cta p {
+    margin: 0 auto 22px;
+    max-width: 720px;
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.94);
+  }
+
+  .bottom-cta .btn-primary {
+    background: #fff;
+    color: var(--purple);
+    box-shadow: none;
+  }
+
+  .bottom-cta .btn-primary:hover {
+    background: #f6eefb;
+  }
+
+  .about-band {
+    margin-top: 34px;
+    background: linear-gradient(180deg, rgba(230, 221, 245, 0.85) 0%, rgba(241, 241, 241, 0.75) 100%);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 34px 28px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+
+  .about-band h2 {
+    margin: 0 0 16px;
+    color: var(--text-main);
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+    font-size: clamp(1.75rem, 2.6vw, 2.6rem);
+    line-height: 1.15;
+  }
+
+  .about-band p {
+    max-width: 860px;
+    margin: 0 auto 14px;
+    color: var(--text-soft);
+    font-size: 1rem;
+  }
+
+  .site-footer {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 34px 24px 38px;
+    text-align: center;
+    color: var(--text-soft);
+    font-size: 0.94rem;
+  }
+
+  .site-footer a {
+    color: var(--purple);
+    font-weight: 700;
+  }
+
+  .site-footer a:hover {
     text-decoration: underline;
+  }
+
+  @media (max-width: 960px) {
+    .hero,
+    .section {
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      padding-top: 18px;
+    }
+
+    .hero-card img,
+    .hero-fallback {
+      min-height: 420px;
+    }
+
+    .section {
+      gap: 22px;
+      margin: 12px 0;
+    }
+
+    .section.reverse-mobile .visual-card {
+      order: -1;
+    }
+
+    .text-card {
+      padding: 30px 24px;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .nav-wrap {
+      padding: 14px 18px;
+    }
+
+    .page {
+      padding: 22px 18px 64px;
+    }
+
+    .nav-links {
+      gap: 10px;
+    }
+
+    .nav-links a:not(.nav-cta) {
+      display: none;
+    }
+
+    .hero-card img,
+    .hero-fallback {
+      min-height: 340px;
+    }
+
+    .text-card,
+    .visual-card,
+    .about-band {
+      border-radius: 22px;
+    }
+
+    .bottom-cta {
+      padding: 34px 22px;
+      border-radius: 24px;
+    }
   }
 </style>
 
-<!-- Hero Section -->
-<section class="hero">
-  
-  <h1>
-    <a href="/index"
-       style="display:inline-block;
-              background:linear-gradient(90deg,#b16be3 0%,#f28ac9 100%);
-              color:white;
-              padding:0.8rem 2rem;
-              border-radius:50px;
-              text-decoration:none;
-              font-size:2rem;
-              font-weight:600;
-              transition:transform 0.2s;">
-      Obtén tu puntaje BabyQ
-    </a>
-  </h1>
-
-  <p>Un cuestionario de bienestar basado en investigación, diseñado específicamente para mujeres embarazadas o que están pensando en quedar embarazadas.
-     Aprende cómo reducir tus riesgos de parto prematuro, diabetes gestacional, preeclampsia y aumento excesivo de peso.</p>
-
-  <p style="max-width:700px; margin:0 auto 2rem auto; font-size:1rem; line-height:1.6; color:#3a2b4b;">
-    BabyQscore fue creado por un equipo dirigido por <strong>Mark Gostine, MD</strong>, inspirado por el nacimiento de su primer nieto.
-    Él comprendió que la buena salud comienza en el útero, cuando las decisiones de la madre, por medio de la epigenética, pueden activar genes buenos
-    y desactivar genes perjudiciales. Estos efectos pueden influir en la salud del niño durante toda su vida. Junto con un equipo de profesionales desarrolló BabyQscore.
-    <strong>Está basado en recomendaciones del American College of Obstetricians and Gynecologists (ACOG)</strong>
-    y en datos de decenas de millones de partos disponibles en el dominio público del <strong>CDC</strong>.
-  </p>
-
-  <div class="button-group">
-    <a href="/index" class="btn-primary">Tomar el cuestionario</a>
-  </div>
-  <p style="margin-top:1.5rem; color:#6a5585; font-size:0.95rem;">
-     Basado en ciencia • Cuestionario de 3 minutos • Resultados personalizados • Siempre gratis
-  </p>
-</section>
-
-<!-- How It Works -->
-<section class="features">
-  <h2>Cómo funciona</h2>
-  <div class="feature-grid">
-    <div class="feature">
-      <div style="font-size:2rem;">📋</div>
-      <h3>Responde el cuestionario</h3>
-      <p>Contesta preguntas cuidadosamente seleccionadas sobre tus hábitos de bienestar y estilo de vida durante el embarazo.</p>
+<div class="landing-page">
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="/landing" class="brand">BabyQ</a>
+      <nav class="nav-links">
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#puntaje">Tu puntaje</a>
+        <a href="#por-que-importa">Por qué importa</a>
+        <a href="/index" class="nav-cta">Tomar el cuestionario</a>
+      </nav>
     </div>
-    <div class="feature">
-      <div style="font-size:2rem;">🧠</div>
-      <h3>Obtén tu puntaje</h3>
-      <p>Recibe tu puntaje BabyQ personalizado, basado en factores de bienestar respaldados por la investigación.</p>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Gratis. Simple. Basado en evidencia.</div>
+        <h1>Un embarazo más saludable puede comenzar con BabyQ.</h1>
+        <p>
+          BabyQ es un cuestionario breve de bienestar diseñado para mujeres embarazadas o que están pensando en quedar embarazadas.
+          Te ayuda a identificar los hábitos diarios que más influyen en un embarazo saludable.
+        </p>
+        <p>
+          En pocos minutos puedes obtener un puntaje claro, mensajes personalizados y una mejor idea de dónde enfocar tus próximos pasos.
+        </p>
+        <p>
+          Aprende cómo reducir tus riesgos de parto prematuro, diabetes gestacional, preeclampsia y aumento excesivo de peso.
+        </p>
+
+        <div class="hero-actions">
+          <a href="/index" class="btn-primary">Tomar el cuestionario</a>
+          <a href="#como-funciona" class="btn-secondary">Ver cómo funciona</a>
+        </div>
+
+        <div class="trust-line">
+          Basado en recomendaciones del American College of Obstetricians and Gynecologists (ACOG) y en datos de decenas de millones de partos del CDC.
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <div class="hero-card">
+          <img
+            src="{{ url_for('static', filename='Expecting with love and grace.png') }}"
+            alt="Mujer embarazada reflexionando sobre su bebé"
+            onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex';"
+          >
+          <div class="hero-fallback" id="hero-fallback">
+            <div>
+              <strong>Imagen principal pendiente</strong>
+              <span>Coloca aquí la imagen aprobada para la versión en español cuando esté lista en la carpeta de archivos estáticos.</span>
+            </div>
+          </div>
+        </div>
+        <div class="image-note">La imagen principal puede activarse en cuanto esté colocada en tu carpeta static.</div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section reverse-mobile" id="como-funciona">
+      <div class="visual-card">
+        <img src="{{ url_for('static', filename='quiz-panel.png') }}" alt="Interfaz del cuestionario BabyQ">
+      </div>
+
+      <div class="text-card">
+        <div class="mini-label">Paso 1</div>
+        <h2>15 preguntas simples de sí o no. Información real sobre tu salud en el embarazo.</h2>
+        <p>
+          BabyQ está diseñado para ser rápido, claro y fácil de completar. No tienes que revisar información interminable ni adivinar qué es lo más importante.
+        </p>
+        <p>
+          Las preguntas se enfocan en hábitos de estilo de vida, ejercicio, nutrición y apoyo, todos relacionados con un embarazo más saludable.
+        </p>
+        <a href="/index" class="btn-primary">Empezar ahora</a>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section" id="puntaje">
+      <div class="text-card">
+        <div class="mini-label">Paso 2</div>
+        <h2>Tu puntaje es solo el comienzo.</h2>
+        <p>
+          Obtén tu puntaje BabyQ personalizado, revisa tus áreas de oportunidad y recibe recomendaciones prácticas adaptadas a tu embarazo.
+        </p>
+        <p>
+          También puedes seguir tu progreso con el tiempo y ver cómo los pequeños cambios pueden mejorar tu bienestar durante el embarazo.
+        </p>
+        <a href="/index" class="btn-secondary">Ver mi puntaje</a>
+      </div>
+
+      <div class="visual-card">
+        <img src="{{ url_for('static', filename='dashboard-panel.png') }}" alt="Panel de progreso y resultados de BabyQ">
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section reverse-mobile" id="por-que-importa">
+      <div class="visual-card">
+        <img src="{{ url_for('static', filename='epigenetics-panel.png') }}" alt="Panel sobre epigenética y salud a largo plazo">
+      </div>
+
+      <div class="text-card">
+        <div class="mini-label">Por qué BabyQ importa</div>
+        <h2>La salud futura de tu bebé empieza mucho antes del nacimiento.</h2>
+        <p>
+          Las decisiones que tomas hoy pueden influir en la salud de tu bebé durante toda su vida.
+        </p>
+        <p>
+          BabyQscore fue creado por un equipo dirigido por <strong>Mark Gostine, MD</strong>, inspirado por el nacimiento de su primer nieto y por la idea de que la buena salud comienza en el útero.
+        </p>
+        <p>
+          A través de la epigenética, los hábitos de la madre pueden ayudar a activar genes beneficiosos y desactivar genes perjudiciales. BabyQ fue construido para enfocarse en ese periodo tan importante.
+        </p>
+        <a href="/index" class="btn-primary">Comenzar con BabyQ</a>
+      </div>
+    </section>
+
+    <section class="bottom-cta">
+      <h3>Da hoy un paso simple y valioso.</h3>
+      <p>
+        BabyQ es gratuito, rápido y está diseñado para acompañarte con claridad, motivación y orientación basada en evidencia durante tu embarazo.
+      </p>
+      <a href="/index" class="btn-primary">Comenzar tu evaluación</a>
+    </section>
+
+    <section class="about-band">
+      <h2>Acerca de BabyQ</h2>
+      <p>
+        BabyQscore fue creado por <strong>Mark Gostine, MD</strong>, inspirado por el nacimiento de su primer nieto.
+        A través de su experiencia clínica, llegó a valorar que la buena salud realmente comienza en el útero, un momento en el que las decisiones de estilo de vida de la madre pueden, mediante la epigenética, activar genes buenos y desactivar genes perjudiciales.
+      </p>
+      <p>
+        El puntaje BabyQ está basado en las recomendaciones del <strong>American College of Obstetricians and Gynecologists (ACOG)</strong> y en datos de resultados de <strong>CDC WONDER</strong>, basados en decenas de millones de partos en los Estados Unidos.
+        Ya sea que estés embarazada ahora o planeando un embarazo, BabyQ te ayuda a aprender cómo tener el embarazo más saludable posible.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div><strong>BabyQ</strong> — Bienestar durante el embarazo basado en investigación</div>
+    <div style="margin-top:0.5rem;">
+      <a href="/privacy">Privacidad</a> |
+      <a href="/terms">Términos</a>
     </div>
-    <div class="feature">
-      <div style="font-size:2rem;">💜</div>
-      <h3>Mejora tu embarazo</h3>
-      <p>Obtén recomendaciones e ideas prácticas adaptadas a tus necesidades únicas durante el embarazo.</p>
+
+    <div style="margin-top:0.5rem;">
+      ¿Preguntas o comentarios? Escríbenos a
+      <a href="mailto:mgostine@babyqscore.org">mgostine@babyqscore.org</a>
     </div>
-  </div>
-</section>
 
-<!-- Why Choose BabyQ -->
-<section class="benefits">
-  <h2>¿Por qué elegir BabyQ?</h2>
-  <p>Tu acompañante de confianza para un embarazo más saludable.</p>
-  <div class="benefit-list">
-    <div class="benefit">✅ Investigación derivada de ACOG y del CDC.</div>
-    <div class="benefit">✅ Recomendaciones personalizadas para tu experiencia única de embarazo.</div>
-    <div class="benefit">✅ Sigue tu progreso de bienestar durante el embarazo.</div>
-  </div>
-</section>
+    <div style="margin-top:0.5rem; line-height:1.4;">
+      BabyQscore LLC<br>
+      520 Butternut Dr. Unit 8<br>
+      Holland MI 49424
+    </div>
 
-<!-- Call to Action -->
-<section class="cta">
-  <h2>¿Lista para descubrir tu puntaje BabyQ?</h2>
-  <p>Únete a los cientos de miles de mujeres embarazadas que confían en BabyQ para acompañarlas en su bienestar durante el embarazo.</p>
-  <a href="/index" class="btn-primary">Comenzar tu evaluación →</a>
-  <p style="margin-top:1rem; color:#6a5585;">Solo toma 3 minutos • Siempre gratis</p>
-</section>
-
-<!-- About BabyQ -->
-<section class="about" style="background-color:#f9f3ff; padding:3rem 1rem; text-align:center;">
-  <h2 style="color:#4a2b84;">Acerca de BabyQ</h2>
-  <p style="max-width:800px; margin:1rem auto; font-size:1rem; line-height:1.6; color:#3a2b4b;">
-    BabyQscore fue creado por <strong>Mark Gostine, MD</strong>, inspirado por el nacimiento de su primer nieto.
-    A través de su experiencia clínica, llegó a valorar que la buena salud realmente comienza en el útero,
-    un momento en el que las decisiones de estilo de vida de la madre pueden, mediante la epigenética, activar genes buenos y desactivar genes perjudiciales,
-    con efectos que pueden influir en la salud del niño durante toda la vida.
-  </p>
-  <p style="max-width:800px; margin:1rem auto; font-size:1rem; line-height:1.6; color:#3a2b4b;">
-    El puntaje BabyQ está basado en las recomendaciones del
-    <strong>American College of Obstetricians and Gynecologists (ACOG)</strong> y en datos de resultados
-    de <strong>CDC WONDER</strong>, basados en decenas de millones de partos en los Estados Unidos.
-    Ya sea que estés embarazada ahora o planeando un embarazo, BabyQ Score te ayuda a aprender cómo
-    tener el embarazo más saludable posible.
-  </p>
-</section>
-
-<!-- Footer -->
-<footer>
-  <div><strong>BabyQ</strong> — Bienestar durante el embarazo basado en investigación</div>
-  <div style="margin-top:0.5rem;">
-    <a href="/privacy">Privacidad</a> |
-    <a href="/terms">Términos</a> |
-  </div>
-
-  <div style="margin-top:0.5rem;">
-    ¿Preguntas o comentarios? Escríbenos a
-    <a href="mailto:mgostine@babyqscore.org">mgostine@babyqscore.org</a>
-  </div>
-
-  <div style="margin-top:0.5rem; line-height:1.4;">
-    BabyQscore LLC<br>
-    520 Butternut Dr. Unit 8<br>
-    Holland MI 49424
-  </div>
-
-  <div style="margin-top:0.5rem;">© 2025 BabyQ. Todos los derechos reservados.</div>
-</footer>
+    <div style="margin-top:0.5rem;">© 2025 BabyQ. Todos los derechos reservados.</div>
+  </footer>
+</div>
 
 {% endblock %}
