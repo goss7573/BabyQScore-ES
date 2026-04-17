@@ -2,88 +2,289 @@
 {% block content %}
 
 <style>
-  .card { background:#fff; border-radius:12px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,.06); margin-bottom:16px; }
-  .bar-bg { height:10px; background:#eee; border-radius:6px; overflow:hidden; }
-  .bar-fill { height:100%; background:#6a0dad; width:0%; transition:width .4s; }
-  .muted { color:#666; font-size:.9rem; }
-  .btn { background:#ff5c5c; color:#fff; border:none; border-radius:8px; padding:10px 14px; cursor:pointer; }
-  .btn-secondary { background:#6a0dad; }
-  .pill { display:inline-block; padding:2px 8px; background:#f1edff; border-radius:999px; margin-left:8px; font-size:.8rem; color:#6a0dad;}
-  .work-item { border-left:4px solid #6a0dad; padding-left:10px; margin:10px 0; }
-  .row { display:flex; gap:16px; }
-  .col { flex:1; }
-  @media (max-width: 800px){ .row{flex-direction:column;} }
+  :root {
+    --bg-main: #FFF8F8;
+    --bg-card: #ffffff;
+    --bg-soft: #f1e8f8;
+    --text-main: #342447;
+    --text-soft: #66577a;
+    --purple: #6A1B9B;
+    --purple-dark: #53157a;
+    --border: #ddcdea;
+    --shadow: 0 18px 40px rgba(106, 27, 155, 0.10);
+  }
+
+  body {
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: "Nunito", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.65;
+  }
+
+  .dashboard-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 26px 20px 72px;
+  }
+
+  .page-title {
+    color: var(--purple);
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 0 0 1.25rem 0;
+    line-height: 1.08;
+    letter-spacing: -0.7px;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.84);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+    margin-bottom: 18px;
+  }
+
+  .muted {
+    color: var(--text-soft);
+    font-size: 0.94rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--purple);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-family: "Montserrat", Arial, sans-serif;
+    font-weight: 700;
+    box-shadow: 0 10px 24px rgba(106, 27, 155, 0.18);
+    transition: background 0.2s, transform 0.2s;
+    text-decoration: none;
+  }
+
+  .btn:hover {
+    background: var(--purple-dark);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: var(--purple);
+    color: #fff;
+  }
+
+  .pill {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--bg-soft);
+    border-radius: 999px;
+    margin-left: 8px;
+    font-size: 0.8rem;
+    color: var(--purple);
+    border: 1px solid var(--border);
+  }
+
+  .work-item {
+    border-left: 4px solid var(--purple);
+    padding-left: 12px;
+    margin: 14px 0;
+  }
+
+  .row {
+    display: flex;
+    gap: 16px;
+  }
+
+  .col {
+    flex: 1;
+  }
+
+  .score-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .score-number {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--purple);
+    line-height: 1;
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+  }
+
+  .section-heading {
+    margin-top: 18px;
+    margin-bottom: 12px;
+    color: var(--text-main);
+    font-size: 1.3rem;
+    font-family: "Poppins", "Montserrat", Arial, sans-serif;
+  }
+
+  .lens-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 10px 24px rgba(106, 27, 155, 0.06);
+  }
+
+  .lens-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .bar-bg {
+    height: 10px;
+    background: #ece4f3;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: var(--purple);
+    width: 0%;
+    transition: width .4s;
+    border-radius: 999px;
+  }
+
+  .history-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .history-list li {
+    margin: 10px 0;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee6f5;
+  }
+
+  .history-list li:last-child {
+    border-bottom: none;
+  }
+
+  .cue-box {
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: var(--bg-soft);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    min-height: 22px;
+  }
+
+  @media (max-width: 800px) {
+    .row {
+      flex-direction: column;
+    }
+
+    .page-title {
+      font-size: 1.9rem;
+    }
+
+    .score-number {
+      font-size: 2.3rem;
+    }
+
+    .card {
+      padding: 18px;
+      border-radius: 20px;
+    }
+
+    .lens-card {
+      border-radius: 16px;
+    }
+  }
 </style>
 
-<h2>Puntaje BabyQ más reciente</h2>
-<div class="card">
-  {% if current %}
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <div style="font-size:2rem; font-weight:700; color:#6a0dad;">{{ current.total_score }}</div>
-      <a class="btn" href="{{ url_for('index') }}">Hacer una nueva evaluación</a>
-    </div>
-    <div class="muted">Realizada: {{ current.created_at }}</div>
+<div class="dashboard-wrap">
+  <h2 class="page-title">Tu panel BabyQ</h2>
 
-    <h3 style="margin-top:18px;">Tu desglose</h3>
-    <div class="row">
-      {% for key, label, total in [
-        ('Lifestyle', 'Estilo de vida', 54),
-        ('Exercise', 'Ejercicio', 14),
-        ('Nutrition', 'Nutrición', 20),
-        ('Support', 'Apoyo', 12)
-      ] %}
-      <div class="col card" style="margin:0;">
-        <div style="display:flex; justify-content:space-between;">
-          <strong>{{ label }}</strong>
-          <span class="muted">{{ current.LENS[key] }}/{{ total }}</span>
+  <div class="card">
+    {% if current %}
+      <div class="score-header">
+        <div>
+          <div class="score-number">{{ current.total_score }}</div>
+          <div class="muted" style="margin-top:8px;">Realizada: {{ current.created_at }}</div>
         </div>
-        <div class="bar-bg" style="margin-top:8px;">
-          {% set pct = (current.LENS[key] / total * 100) if total>0 else 0 %}
-          <div class="bar-fill" style="width: {{ '%.1f' % pct }}%;"></div>
+        <a class="btn" href="{{ url_for('index') }}">Hacer una nueva evaluación</a>
+      </div>
+
+      <h3 class="section-heading">Tu desglose</h3>
+      <div class="row">
+        {% for key, label, total in [
+          ('Lifestyle', 'Estilo de vida', 54),
+          ('Exercise', 'Ejercicio', 14),
+          ('Nutrition', 'Nutrición', 20),
+          ('Support', 'Apoyo', 12)
+        ] %}
+        <div class="col">
+          <div class="lens-card">
+            <div class="lens-top">
+              <strong>{{ label }}</strong>
+              <span class="muted">{{ current.LENS[key] }}/{{ total }}</span>
+            </div>
+            <div class="bar-bg">
+              {% set pct = (current.LENS[key] / total * 100) if total > 0 else 0 %}
+              <div class="bar-fill" style="width: {{ '%.1f' % pct }}%;"></div>
+            </div>
+          </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <div class="muted">Aún no hay evaluaciones. Haz la primera.</div>
-    <a class="btn" href="{{ url_for('index') }}" style="margin-top:10px;">Hacer una nueva evaluación</a>
-  {% endif %}
-</div>
+    {% else %}
+      <div class="muted">Aún no hay evaluaciones. Haz la primera.</div>
+      <a class="btn" href="{{ url_for('index') }}" style="margin-top:12px; display:inline-block;">Hacer una nueva evaluación</a>
+    {% endif %}
+  </div>
 
-<div class="card">
-  <h3>Trabaja ahora en esto</h3>
-  {% if work_items and work_items|length > 0 %}
-    {% for w in work_items %}
-      <div class="work-item">
-        <div><strong>P{{ w.q_num }}</strong> {{ w.text }}</div>
-        <button class="btn btn-secondary" style="margin-top:8px;"
-                onclick="cue({{ w.q_num }})">Dame un consejo</button>
-        <div id="cue-{{ w.q_num }}" class="muted" style="margin-top:8px;"></div>
-      </div>
-    {% endfor %}
-  {% else %}
-    <div class="muted">Muy bien. No hay temas pendientes en tu evaluación más reciente.</div>
-  {% endif %}
-</div>
-
-<div class="card">
-  <h3>Historial (últimas 5)</h3>
-  {% if history and history|length > 0 %}
-    <ul style="list-style:none; padding-left:0;">
-      {% for h in history %}
-        <li style="margin:8px 0;">
-          <strong>{{ h.total_score }}</strong>
-          <span class="muted">puntos</span>
-          <span class="pill">{{ h.created_at }}</span>
-          <span class="muted" style="margin-left:8px;">
-            EV {{ h.LENS['Lifestyle'] }}/54 • EJ {{ h.LENS['Exercise'] }}/14 • N {{ h.LENS['Nutrition'] }}/20 • A {{ h.LENS['Support'] }}/12
-          </span>
-        </li>
+  <div class="card">
+    <h3 class="section-heading" style="margin-top:0;">Trabaja ahora en esto</h3>
+    {% if work_items and work_items|length > 0 %}
+      {% for w in work_items %}
+        <div class="work-item">
+          <div><strong>P{{ w.q_num }}</strong> {{ w.text }}</div>
+          <button class="btn btn-secondary" style="margin-top:10px;" onclick="cue({{ w.q_num }})">Dame un consejo</button>
+          <div id="cue-{{ w.q_num }}" class="cue-box muted"></div>
+        </div>
       {% endfor %}
-    </ul>
-  {% else %}
-    <div class="muted">Todavía no hay historial.</div>
-  {% endif %}
+    {% else %}
+      <div class="muted">Muy bien. No hay temas pendientes en tu evaluación más reciente.</div>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h3 class="section-heading" style="margin-top:0;">Historial (últimas 5)</h3>
+    {% if history and history|length > 0 %}
+      <ul class="history-list">
+        {% for h in history %}
+          <li>
+            <strong>{{ h.total_score }}</strong>
+            <span class="muted">puntos</span>
+            <span class="pill">{{ h.created_at }}</span>
+            <div class="muted" style="margin-top:6px;">
+              EV {{ h.LENS['Lifestyle'] }}/54 •
+              EJ {{ h.LENS['Exercise'] }}/14 •
+              N {{ h.LENS['Nutrition'] }}/20 •
+              A {{ h.LENS['Support'] }}/12
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="muted">Todavía no hay historial.</div>
+    {% endif %}
+  </div>
 </div>
 
 <script>
@@ -94,7 +295,7 @@ async function cue(qNum){
     body: JSON.stringify({question_number: qNum})
   });
   const data = await res.json();
-  const el = document.getElementById("cue-"+qNum);
+  const el = document.getElementById("cue-" + qNum);
   el.textContent = data.message || "No hay mensaje disponible.";
 }
 </script>
