@@ -6,53 +6,130 @@
     scroll-behavior: smooth;
   }
 
-  /* compact pink intro box */
+  :root {
+    --surface: #ffffff;
+    --surface-soft: #f1e8f8;
+    --surface-deep: #e7d7f3;
+    --text: #2f2240;
+    --text-soft: #625676;
+    --purple: #6A1B9B;
+    --purple-dark: #53157a;
+    --purple-light: #8a3bbd;
+    --border: #dfcfee;
+    --shadow: 0 18px 40px rgba(106, 27, 155, 0.10);
+  }
+
+  body {
+    background: #FFF8F8;
+  }
+
   .score-box {
-    background-color: #f8c8dc;
-    color: #3a2b4b;
-    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--text);
+    padding: 2.2rem 2rem;
     text-align: center;
-    border-radius: 8px;
-    margin: 1.5rem auto 1rem auto;
-    max-width: 700px;
+    border-radius: 28px;
+    margin: 2rem auto 1.5rem auto;
+    max-width: 760px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
   }
 
   .score-box h2 {
-    font-size: 1.4rem;
-    margin-bottom: 0.4rem;
-    color: #4a2b84;
+    font-size: 2rem;
+    margin: 0 0 0.75rem 0;
+    color: var(--purple);
+    line-height: 1.15;
   }
 
   .score-box p {
-    font-size: 0.95rem;
-    line-height: 1.4;
-    margin: 0.5rem 0 1rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0.5rem auto 1.3rem;
+    max-width: 640px;
+    color: var(--text);
   }
 
   .submit-button {
-    background: linear-gradient(90deg, #b16be3 0%, #f28ac9 100%);
+    background: var(--purple);
     color: #fff;
-    padding: 0.7rem 2rem;
+    padding: 0.9rem 2.2rem;
     border: none;
-    border-radius: 50px;
+    border-radius: 999px;
     font-size: 1rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s, background 0.2s;
+    box-shadow: 0 10px 24px rgba(106, 27, 155, 0.18);
   }
 
   .submit-button:hover {
-    transform: scale(1.05);
+    background: var(--purple-dark);
+    transform: translateY(-1px);
+  }
+
+  .questionnaire-divider {
+    border: 0;
+    height: 1px;
+    background: #e3d5ee;
+    margin: 2rem auto 1.5rem;
+    max-width: 900px;
+  }
+
+  #questionnaire {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  #questionnaire h2 {
+    color: var(--purple);
+    font-size: 2.1rem;
+    margin-bottom: 1.3rem;
+    line-height: 1.1;
   }
 
   .question {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .question strong {
+    color: var(--text);
+  }
+
+  .question label {
+    display: inline-block;
+    margin-right: 1.2rem;
+    margin-top: 0.4rem;
+    color: var(--text);
+  }
+
+  .question input[type="radio"] {
+    accent-color: var(--purple);
+    margin-right: 4px;
+  }
+
+  .form-submit-wrap {
+    margin-top: 2rem;
+    text-align: center;
   }
 
   @media screen and (max-width: 768px) {
     .score-box {
-      max-width: 90%;
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
+      padding: 1.6rem 1.3rem;
+      border-radius: 22px;
+    }
+
+    .score-box h2 {
+      font-size: 1.6rem;
+    }
+
+    #questionnaire h2 {
+      font-size: 1.8rem;
     }
   }
 </style>
@@ -61,18 +138,19 @@
   <h2>Tu puntaje BabyQ te muestra cómo</h2>
   <p>
     El embarazo es el momento perfecto para activar los genes más saludables de tu bebé.
-    Este cuestionario de 15 preguntas de sí o no te muestra cómo activar los buenos genes
-    de tu bebé y desactivar los perjudiciales, para que puedas darle el mejor comienzo posible.
+    Este cuestionario de 15 preguntas de sí o no te muestra cómo activar los genes buenos
+    y desactivar los perjudiciales, para que puedas darle el mejor comienzo posible.
   </p>
   <a href="#questionnaire">
     <button class="submit-button">Comienza tu evaluación abajo</button>
   </a>
 </div>
 
-<hr>
+<hr class="questionnaire-divider">
 
 <div id="questionnaire">
-  <h2 style="color:#5e3bea;">Haz la evaluación BabyQ</h2>
+  <h2>Haz la evaluación BabyQ</h2>
+
   <form method="POST">
     {% for i in range(questions|length) %}
     <div class="question">
@@ -81,7 +159,10 @@
       <label><input type="radio" name="q{{ i }}" value="No"> No</label>
     </div>
     {% endfor %}
-    <button type="submit" class="submit-button">Enviar mis respuestas</button>
+
+    <div class="form-submit-wrap">
+      <button type="submit" class="submit-button">Enviar mis respuestas</button>
+    </div>
   </form>
 </div>
 
