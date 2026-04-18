@@ -3,7 +3,6 @@
 
 <style>
   :root {
-    --bg-main: #FFF8F8;
     --surface: #ffffff;
     --surface-soft: #f1e8f8;
     --text: #2f2240;
@@ -14,46 +13,36 @@
     --shadow: 0 18px 40px rgba(106, 27, 155, 0.10);
   }
 
-  body {
-    background: var(--bg-main);
-    font-family: "Nunito", Arial, sans-serif;
-  }
-
   .calc-container {
     max-width: 900px;
     margin: 0 auto;
-    padding: 30px 20px 60px;
   }
 
   .calc-title {
     text-align: center;
     color: var(--purple);
-    font-family: "Poppins", "Montserrat", Arial, sans-serif;
-    font-size: 2.4rem;
-    margin-bottom: 0.4rem;
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
   }
 
   .calc-subtitle {
     text-align: center;
     color: var(--text-soft);
-    margin-bottom: 2.2rem;
-    font-size: 1.05rem;
+    margin-bottom: 2rem;
   }
 
   .calc-card {
-    background: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.8);
     border: 1px solid var(--border);
     border-radius: 28px;
-    padding: 2.2rem;
+    padding: 2rem;
     box-shadow: var(--shadow);
   }
 
   .section-title {
     color: var(--purple);
-    margin-top: 1.6rem;
+    margin-top: 1.5rem;
     margin-bottom: 1rem;
-    font-family: "Montserrat", Arial, sans-serif;
-    font-size: 1.25rem;
   }
 
   .form-group {
@@ -72,11 +61,10 @@
 
   .form-control {
     width: 100%;
-    padding: 0.7rem;
-    border-radius: 12px;
+    padding: 0.65rem;
+    border-radius: 10px;
     border: 1px solid var(--border);
     background: #fff;
-    font-size: 0.95rem;
   }
 
   .form-control:focus {
@@ -95,7 +83,8 @@
   }
 
   .checklist label {
-    margin-bottom: 0.3rem;
+    display: block;
+    margin-bottom: 0.4rem;
   }
 
   .form-hint {
@@ -106,17 +95,16 @@
 
   .actions {
     text-align: center;
-    margin-top: 2.2rem;
+    margin-top: 2rem;
   }
 
   .btn-primary {
     background: var(--purple);
     color: #fff;
-    padding: 0.9rem 2.8rem;
+    padding: 0.85rem 2.5rem;
     border-radius: 999px;
     border: none;
     font-weight: 700;
-    font-family: "Montserrat", Arial, sans-serif;
     cursor: pointer;
     box-shadow: 0 10px 24px rgba(106, 27, 155, 0.18);
     transition: 0.2s;
@@ -176,14 +164,126 @@
     <div class="form-row">
       <div class="form-group">
         <label>Estatura (pies):</label>
-        <input type="number" name="height_feet" class="form-control" min="3" max="7" required>
+        <input type="number" name="height_feet" class="form-control" placeholder="pies" min="3" max="7" required>
       </div>
       <div class="form-group">
         <label>Estatura (pulgadas):</label>
-        <input type="number" name="height_inches" class="form-control" min="0" max="11" required>
+        <input type="number" name="height_inches" class="form-control" placeholder="pulgadas" min="0" max="11" required>
       </div>
     </div>
 
-    <!-- ZIP REMOVED -->
+    <h3 class="section-title">Antecedentes del embarazo</h3>
 
-    ...
+    <div class="form-group">
+      <label>¿Cuántas semanas de embarazo tiene?</label>
+      <input type="number" name="weeks_pregnant" class="form-control" min="0" max="42" required>
+    </div>
+
+    <div class="form-group">
+      <label>Número de partos previos:</label>
+      <input type="number" name="prior_births" id="prior_births" class="form-control" min="0" max="20" required>
+      <input type="hidden" name="gravida" id="gravida">
+    </div>
+
+    <div class="form-group">
+      <label>Si ha tenido partos previos, ¿ha tenido uno en los últimos 13 meses?</label>
+      <select name="preg_interval" class="form-control">
+        <option value="">Seleccione...</option>
+        <option value="4_11">Sí</option>
+        <option value="12_plus">No</option>
+      </select>
+      <div class="form-hint">
+        Si no está segura, déjelo en blanco — usaremos un valor promedio de riesgo.
+      </div>
+    </div>
+
+    <div class="checklist">
+      <label><input type="checkbox" name="hx_preterm"> Antecedente de parto prematuro previo</label>
+      <label><input type="checkbox" name="hx_gdm"> Antecedente de diabetes gestacional previa</label>
+    </div>
+
+    <h3 class="section-title">Antecedentes médicos</h3>
+
+    <div class="checklist columns">
+      <label><input type="checkbox" name="hx_htn"> Hipertensión</label>
+      <label><input type="checkbox" name="hx_diabetes"> Diabetes</label>
+      <label><input type="checkbox" name="fam_diabetes"> Antecedentes familiares de diabetes</label>
+      <label><input type="checkbox" name="hx_depression"> Depresión</label>
+      <label><input type="checkbox" name="hx_thyroid"> Enfermedad tiroidea</label>
+      <label><input type="checkbox" name="hx_autoimmune"> Enfermedad autoinmune</label>
+      <label><input type="checkbox" name="hx_pcos"> SOP</label>
+      <label><input type="checkbox" name="hx_cervical"> Problemas cervicales</label>
+      <label><input type="checkbox" name="hx_macrosomia"> Bebé previo de más de 9 libras</label>
+      <label><input type="checkbox" name="fam_preterm"> Antecedentes familiares de parto prematuro</label>
+      <label><input type="checkbox" name="fam_preeclampsia"> Antecedentes familiares de preeclampsia</label>
+    </div>
+
+    <h3 class="section-title">Estilo de vida y factores sociales</h3>
+
+    <div class="form-group">
+      <label>Tabaquismo:</label>
+      <select name="smoking_status" class="form-control" required>
+        <option value="">Seleccione...</option>
+        <option>Non-smoker</option>
+        <option>Former smoker</option>
+        <option>Current smoker</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Nivel educativo:</label>
+      <select name="education_level" class="form-control">
+        <option value="">Seleccione...</option>
+        <option>High school or less</option>
+        <option>Some college</option>
+        <option>Bachelor's or higher</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Tipo de seguro:</label>
+      <select name="insurance_type" class="form-control">
+        <option value="">Seleccione...</option>
+        <option>Private</option>
+        <option>Medicaid</option>
+        <option>Uninsured</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>¿En qué semana comenzó el cuidado prenatal?</label>
+      <input type="number" name="prenatal_start" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>Tipo de embarazo:</label>
+      <select name="pregnancy_type" class="form-control">
+        <option value="">Seleccione...</option>
+        <option>Singleton</option>
+        <option>Twins</option>
+        <option>Triplets or more</option>
+      </select>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn-primary">Calcular mi riesgo</button>
+    </div>
+
+  </form>
+</div>
+
+<script>
+  (function(){
+    const prior = document.getElementById('prior_births');
+    const grav = document.getElementById('gravida');
+    function sync(){ grav.value = prior.value || ''; }
+    if (prior && grav){
+      prior.addEventListener('input', sync);
+      prior.addEventListener('change', sync);
+      sync();
+    }
+  })();
+</script>
+
+
+{% endblock %}
