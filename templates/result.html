@@ -1,6 +1,4 @@
-from pathlib import Path
-
-replacement = r'''{% extends "base.html" %}
+{% extends "base.html" %}
 {% block content %}
 
 <style>
@@ -352,7 +350,20 @@ async function getNextMessage(questionIndex, buttonEl){
         {% set tot = category_totals[category] %}
         {% set pct = (sc / tot * 100) | round(0) %}
         <div class="score-row">
-          <div class="bar-label">{{ category }}: {{ sc }} / {{ tot }} puntos</div>
+          <div class="bar-label">
+            {% if category == 'Lifestyle' %}
+              Estilo de vida / Lifestyle
+            {% elif category == 'Exercise' %}
+              Ejercicio / Exercise
+            {% elif category == 'Nutrition' %}
+              Nutrición / Nutrition
+            {% elif category == 'Support' %}
+              Apoyo / Support
+            {% else %}
+              {{ category }}
+            {% endif %}
+            : {{ sc }} / {{ tot }} puntos
+          </div>
           <div class="bar">
             <div class="fill" style="width: {{ pct }}%;">{{ pct }}%</div>
           </div>
@@ -389,8 +400,3 @@ async function getNextMessage(questionIndex, buttonEl){
 </div>
 
 {% endblock %}
-'''
-
-out = Path('/mnt/data/result_es_full_replacement.html')
-out.write_text(replacement)
-print(f"Wrote {out} with {len(replacement.splitlines())} lines")
